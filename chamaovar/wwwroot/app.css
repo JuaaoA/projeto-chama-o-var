@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #006400;
+    color: #CCFF33;
+    font-family: 'Alfa Slab One';
+    letter-spacing: 1px;
 }
 
 .lading_botao_iniciar {
@@ -7,10 +13,55 @@ html, body {
     text-decoration: overline;
 }
 
+input {
+    color: #006400;
+    background-color: #CCFF33;
+    border-color: #CCFF33;
+    height: 50px;
+    width: 350px;
+    border-radius: 12px;
+
+    display: block;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.pagina_login {
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start;
+    align-items: center;
+    
+    margin-top: 40px;
+}
+
+.botao_login {
+    color: #006400;
+    background-color: #CCFF33;
+    border-color: #CCFF33;
+    height: 50px;
+    width: 100px;
+    display: block;
+    border-radius: 10px;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+    .botao_login:hover {
+        border-color: #006400;
+    }
+
 /*
-Verde menta suave (#B8E986) – Um tom fresco e suave que ainda remete ao campo de futebol.
-Cinza claro (#F5F5F5) – Ideal para fundos, criando uma atmosfera limpa e moderna.
-Azul pastel (#A9CCE3) – Um tom leve que transmite tranquilidade e pode ser usado em menus ou destaques.
-Bege claro (#FBE7C6) – Para áreas de texto ou seções que precisam de contraste suave.
-Cinza suave (#E0E0E0) – Para bordas, ícones ou pequenas seções que precisam de um tom neutro.
+cores do site:
+
+fundo-header: verde muito escuro (004B23)
+escrita: verde limão claro (CCFF33)
+background: verde escuro (006400)
+fazer-login/usuário/colab: verde limão claro (CCFF33)
+botões: verde limão claro (CCFF33)
+escrita-botão: verde muito escuro (004B23)
+placeholders: verde limão claro (CCFF33)
+escrita-placeholders: verde muito escuro (004B23)
 */  

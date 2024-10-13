@@ -5,29 +5,31 @@
 
 <PageTitle>Chama o VAR - Login</PageTitle>
 
-<h3>Bem vindo à página de login!</h3>
 
-<img src="" class="logo">
+<div class="pagina_login">
+    <h3>Bem vindo à página de login!</h3>
 
-<form>
-    <input class="login_input" type="email" required @bind="email" placeholder="Digite seu e-mail"/>
-    <input class="login_input" type="password" required @bind="senha" placeholder="Digite sua senha" />
-</form>
+    <img src="" class="logo">
 
-<NavLink href="login/esqueci-senha">
-    <span>Esqueci minha senha</span>
-</NavLink>
+    <form>
+        <input class="login_input" type="email" required @bind="email" placeholder="Digite seu e-mail" />
+        <input class="login_input" type="password" required @bind="senha" placeholder="Digite sua senha" />
+    </form>
 
-<button type="button" class="botao_login" @onclick="TentarLogin">Login</button>
+    <NavLink href="login/esqueci-senha">
+        <div>Esqueceu a senha?</div>
+    </NavLink>
 
-<NavLink href="login/criar-conta">
-    <span>Criar conta</span>
-</NavLink>
+    <button type="button" class="botao_login" @onclick="TentarLogin">Login</button>
 
-<NavLink class="lading_botao_iniciar" href="colaborador/login">
-    <span class="lading_texto_iniciar" aria-hidden="true">Sou colaborador</span>
-</NavLink>
+    <NavLink href="login/criar-conta">
+        <span>Criar conta</span>
+    </NavLink>
 
+    <NavLink class="lading_botao_iniciar" href="colaborador/login">
+        <span class="lading_texto_iniciar" aria-hidden="true">Sou colaborador</span>
+    </NavLink>
+</div>
 
 @code {
     private string? email, senha;

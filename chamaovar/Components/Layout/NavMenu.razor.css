@@ -9,12 +9,14 @@
 }
 
 .texto_nav {
-    color: #FBE7C6;
+    color: #CCFF33;
+    text-decoration: none;
+    font-size: 25px;
 }
 
 .navegacao_tudo {
     overflow: hidden;
-    background-color: #B8E986;
+    background-color: #004B23;
     display: block;
     width: 100%;
 }
@@ -26,9 +28,22 @@
 }
 
 .item_navegacao {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 50px;
+    margin-right: 50px;
     list-style-type: none;
+}
+
+.texto_login {
+    color: #CCFF33;
+}
+
+.icone_usuario {
+    height: 60px;
+    width: 60px;
+    
+    margin-bottom: 5px;
+    margin-top: -15px;
+    margin-right: 5px;
 }
 
 NavLink {
@@ -49,3 +64,16 @@ NavLink {
         overflow-y: auto;
     }
 }
+
+/*
+cores do site:
+
+fundo-header: verde muito escuro (004B23)
+escrita: verde limão claro (CCFF33)
+background: verde escuro (006400)
+fazer-login/usuário/colab: verde limão claro (CCFF33)
+botões: verde limão claro (CCFF33)
+escrita-botão: verde muito escuro (004B23)
+placeholders: verde limão claro (CCFF33)
+escrita-placeholders: verde muito escuro (004B23)
+*/  
