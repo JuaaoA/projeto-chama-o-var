@@ -1,0 +1,32 @@
+﻿@page "/login"
+@rendermode InteractiveServer
+@inject NavigationManager NavigationManager
+
+<PageTitle>Chama o VAR - Login</PageTitle>
+
+<h3>Bem vindo usuário!</h3>
+
+<img src="" class="logo">
+
+<form>
+
+    <input  class="login_input" type="email" />
+    <input class="login_input" type="password" />
+
+</form>
+
+<NavLink class="lading_botao_iniciar" href="colaborador/login">
+    <span class="lading_texto_iniciar" aria-hidden="true">Sou colaborador</span>
+</NavLink>
+
+<button type="button" class="botao_login" @onclick="TentarLogin">Login</button>
+
+
+@code {
+    private void TentarLogin()
+    {
+        Console.WriteLine("tentativa de login1!!!");
+
+        NavigationManager.NavigateTo("/weather");
+    }
+}

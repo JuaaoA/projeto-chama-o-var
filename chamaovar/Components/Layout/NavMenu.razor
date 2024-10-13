@@ -1,0 +1,54 @@
+﻿<nav class="navegacao_tudo">
+
+    <div class="navegacao_container">
+
+        <a class="logo_chamaovar_nav" href="">
+            <img src="#" alt="Chama o VAR" />
+        </a>
+
+
+        <div class="botoes_nav" @onclick="ToggleNavMenu">
+
+            <ul class="lista_botoes_nav">
+
+                <li class="item_navegacao">
+                    <NavLink class="link_navegacao" href="" Match="NavLinkMatch.All">
+                        <span class="texto_nav" aria-hidden="true">Home</span>
+                    </NavLink>
+                </li>
+
+                <li class="item_navegacao">
+                    <NavLink class="link_navegacao" href="sobre">
+                        <span class="texto_nav" aria-hidden="true">Sobre</span>
+                    </NavLink>
+                </li>
+
+                <li class="item_navegacao">
+                    <NavLink class="link_navegacao" href="contato">
+                        <span class="texto_nav" aria-hidden="true">Contato</span>
+                    </NavLink>
+                </li>
+            </ul>
+
+        </div>
+           
+        <div class="botao_login_nav">
+            <NavLink href="login">
+                <span>Fazer Login</span>
+            </NavLink>
+        </div>
+
+    </div>
+
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+    private string? NavBarCssClass => collapseNavMenu ? null : "show";
+    private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

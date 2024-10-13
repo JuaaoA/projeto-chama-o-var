@@ -1,0 +1,48 @@
+
+.logo_chamaovar_nav {
+    
+}
+
+.lista_botoes_nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.texto_nav {
+     text-decoration: none;
+     color: red;
+}
+
+.navegacao_tudo {
+    overflow: hidden;
+    background-color: #A9CCE3;
+    display: block;
+    width: 100%;
+}
+
+.navegacao_container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.item_navegacao {
+    margin-left: 20px;
+    margin-right: 20px;
+    list-style-type: none;
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler {
+        display: none;
+    }
+
+    .nav-scrollable {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+
+        /* Allow sidebar to scroll for tall menus */
+        height: calc(100vh - 3.5rem);
+        overflow-y: auto;
+    }
+}
