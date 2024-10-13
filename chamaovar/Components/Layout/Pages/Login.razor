@@ -10,7 +10,6 @@
 <img src="" class="logo">
 
 <form>
-
     <input class="login_input" type="email" required @bind="email" placeholder="Digite seu e-mail"/>
     <input class="login_input" type="password" required @bind="senha" placeholder="Digite sua senha" />
 </form>
@@ -33,7 +32,7 @@
 @code {
     private string? email, senha;
 
-    private async void TentarLogin()
+    private async void TentarLogin()    
     {
         
         await JsRuntime.InvokeVoidAsync("alert", "Login realizado com sucesso!!");

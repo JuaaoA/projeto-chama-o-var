@@ -9,13 +9,12 @@
 }
 
 .texto_nav {
-     text-decoration: none;
-     color: red;
+    color: #FBE7C6;
 }
 
 .navegacao_tudo {
     overflow: hidden;
-    background-color: #A9CCE3;
+    background-color: #B8E986;
     display: block;
     width: 100%;
 }
@@ -30,6 +29,10 @@
     margin-left: 20px;
     margin-right: 20px;
     list-style-type: none;
+}
+
+NavLink {
+    text-decoration: none;
 }
 
 @media (min-width: 641px) {
