@@ -1,5 +1,6 @@
 ﻿@page "/colaborador/login"
 @rendermode InteractiveServer
+@inject IJSRuntime JsRuntime
 
 <PageTitle>Entre como colaborador - Chama o VAR</PageTitle>
 
@@ -9,16 +10,21 @@
 
 <form>
 
-    <input class="login_input" type="email" />
-    <input class="login_input" type="password" />
+    <input class="login_input_email" type="email" required placeholder="Digite seu e-mail"/>
+    <input class="login_input_senha" type="password" required placeholder="Digite sua senha" />
 
 </form>
+
+<NavLink href="login/esqueci-senha">
+    <span>Esqueci minha senha</span>
+</NavLink>
 
 <button type="button" class="botao_login" @onclick="TentarLogin">Login</button>
 
 @code {
-    private void TentarLogin()
+    private async void TentarLogin()
     {
-        
+        await JsRuntime.InvokeVoidAsync("alert", "Login realizado com sucesso!!");
+        //NavigationManager.NavigateTo();
     }
 }

@@ -1,32 +1,42 @@
 ﻿@page "/login"
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JsRuntime
 
 <PageTitle>Chama o VAR - Login</PageTitle>
 
-<h3>Bem vindo usuário!</h3>
+<h3>Bem vindo à página de login!</h3>
 
 <img src="" class="logo">
 
 <form>
 
-    <input  class="login_input" type="email" />
-    <input class="login_input" type="password" />
-
+    <input class="login_input" type="email" required @bind="email" placeholder="Digite seu e-mail"/>
+    <input class="login_input" type="password" required @bind="senha" placeholder="Digite sua senha" />
 </form>
+
+<NavLink href="login/esqueci-senha">
+    <span>Esqueci minha senha</span>
+</NavLink>
+
+<button type="button" class="botao_login" @onclick="TentarLogin">Login</button>
+
+<NavLink href="login/criar-conta">
+    <span>Criar conta</span>
+</NavLink>
 
 <NavLink class="lading_botao_iniciar" href="colaborador/login">
     <span class="lading_texto_iniciar" aria-hidden="true">Sou colaborador</span>
 </NavLink>
 
-<button type="button" class="botao_login" @onclick="TentarLogin">Login</button>
-
 
 @code {
-    private void TentarLogin()
-    {
-        Console.WriteLine("tentativa de login1!!!");
+    private string? email, senha;
 
-        NavigationManager.NavigateTo("/weather");
+    private async void TentarLogin()
+    {
+        
+        await JsRuntime.InvokeVoidAsync("alert", "Login realizado com sucesso!!");
+        //NavigationManager.NavigateTo("/");
     }
 }

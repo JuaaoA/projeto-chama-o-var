@@ -1,0 +1,21 @@
+﻿@page "/login/esqueci-senha"
+@rendermode InteractiveServer
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+
+<PageTitle>Chama o VAR -  Esqueci a senha</PageTitle>
+
+<h3>EsqueciSenha</h3>
+<form>
+    <input type="email" name="email" value="" placeholder="Digite seu E-mail" required>
+</form>
+
+<button class="" @onclick="esqueciSenha">Enviar Código</button>
+
+@code {
+    private async void esqueciSenha()
+    {
+        await JsRuntime.InvokeVoidAsync("alert", "Código enviado com sucesso!!");
+        NavigationManager.NavigateTo("login");
+    }
+}

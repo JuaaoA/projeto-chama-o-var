@@ -1,0 +1,33 @@
+﻿@page "/login/criar-conta"
+@rendermode InteractiveServer
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+
+<PageTitle>Chama o VAR -  Criar conta</PageTitle>
+
+<h3>Criar Conta</h3>
+
+<form>
+    <input type="text" name="" value="" placeholder="Digite seu nome completo" required/>
+    <input type="email" name="" value="" placeholder="Digite seu e-mail" required />
+    <input type="text" name="" value="" placeholder="Digite seu CPF" required />
+    <input type="password" name="" value="" placeholder="Digite sua senha" required />
+    <input type="password" name="" value="" placeholder="Digite novamente sua senha" required />
+    <input type="date" name="" value="" placeholder="Digite sua data de nascimento" required />
+    <input type="checkbox" name="" value="" required />
+    <p>Li e Concordo com os Termos de Serviço da plataforma</p>
+</form>
+
+<button type="button" name="" value="" @onclick="ContaCriada">Criar conta</button>
+
+<NavLink href="login">
+    <span>Já possui conta? Login</span>
+</NavLink>
+
+@code {
+    private async void ContaCriada()
+    {
+        await JsRuntime.InvokeVoidAsync("alert", "Conta criada com sucesso!!");
+        NavigationManager.NavigateTo("login");
+    }
+}
