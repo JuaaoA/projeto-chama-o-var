@@ -4,22 +4,25 @@
 
 <PageTitle>Entre como colaborador - Chama o VAR</PageTitle>
 
-<h3>Olá, Colaborador!</h3>
+<div class="pagina_colaborador">
 
-<img src="" class="logo">
+    <h3>Olá, Colaborador!</h3>
 
-<form>
+    <img src="" class="logo">
 
-    <input class="login_input_email" type="email" required placeholder="Digite seu e-mail"/>
-    <input class="login_input_senha" type="password" required placeholder="Digite sua senha" />
+    <form>
 
-</form>
+        <input class="login_input_email" type="email" required placeholder="Digite seu e-mail"/>
+        <input class="login_input_senha" type="password" required placeholder="Digite sua senha" />
 
-<NavLink href="login/esqueci-senha">
-    <span>Esqueci minha senha</span>
-</NavLink>
+    </form>
 
-<button type="button" class="botao_login" @onclick="TentarLogin">Login</button>
+    <a class="nav-links" href="login/esqueci-senha">
+        <span>Esqueci minha senha</span>
+    </a>
+
+    <button type="button" class="botao_largo" @onclick="TentarLogin">Login</button>
+</div>
 
 @code {
     private async void TentarLogin()

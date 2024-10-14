@@ -5,24 +5,27 @@
 
 <PageTitle>Chama o VAR -  Criar conta</PageTitle>
 
-<h3>Criar Conta</h3>
+<div class="pagina_criar_conta">
+    <h3>Criar Conta</h3>
 
-<form>
-    <input type="text" name="" value="" placeholder="Digite seu nome completo" required/>
-    <input type="email" name="" value="" placeholder="Digite seu e-mail" required />
-    <input type="text" name="" value="" placeholder="Digite seu CPF" required />
-    <input type="password" name="" value="" placeholder="Digite sua senha" required />
-    <input type="password" name="" value="" placeholder="Digite novamente sua senha" required />
-    <input type="date" name="" value="" placeholder="Digite sua data de nascimento" required />
-    <input type="checkbox" name="" value="" required />
-    <p>Li e Concordo com os Termos de Serviço da plataforma</p>
-</form>
+    <form>
+        <input type="text" name="" value="" placeholder="Digite seu nome completo" required/>
+        <input type="email" name="" value="" placeholder="Digite seu e-mail" required />
+        <input type="text" name="" value="" placeholder="Digite seu CPF" required />
+        <input type="password" name="" value="" placeholder="Digite sua senha" required />
+        <input type="password" name="" value="" placeholder="Digite novamente sua senha" required />
+        <input type="date" name="" value="" placeholder="Digite sua data de nascimento" required />
+        <div class="cheque-tudo">
+            <input class="cheque-box" type="checkbox" name="" value="" required /> <span class="texto-cheque-box">Li e Concordo com os Termos de Serviço da plataforma</span>
+        </div> 
+    </form>
 
-<button type="button" name="" value="" @onclick="ContaCriada">Criar conta</button>
+    <button type="button" class="botao_largo" name="" value="" @onclick="ContaCriada">Criar conta</button>
 
-<NavLink href="login">
-    <span>Já possui conta? Login</span>
-</NavLink>
+    <a href="login">
+        <span class="nav_links">Já possui conta? Login</span>
+    </a>
+</div>
 
 @code {
     private async void ContaCriada()

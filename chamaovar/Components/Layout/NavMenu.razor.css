@@ -3,6 +3,14 @@
     
 }
 
+a {
+    color: #CCFF33;
+}
+
+a:hover {
+    color: white;
+}
+
 .lista_botoes_nav {
     display: flex;
     justify-content: space-between;
@@ -12,6 +20,14 @@
     color: #CCFF33;
     text-decoration: none;
     font-size: 25px;
+}
+
+.texto_nav:hover {
+    color: white;
+}
+
+botao_login_nav:hover {
+    color: white;
 }
 
 .navegacao_tudo {
@@ -35,6 +51,7 @@
 
 .texto_login {
     color: #CCFF33;
+
 }
 
 .icone_usuario {

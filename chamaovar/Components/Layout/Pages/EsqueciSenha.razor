@@ -5,17 +5,20 @@
 
 <PageTitle>Chama o VAR -  Esqueci a senha</PageTitle>
 
-<h3>EsqueciSenha</h3>
-<form>
-    <input type="email" name="email" value="" placeholder="Digite seu E-mail" required>
-</form>
+<div class="pagina_esqueci_senha">
+    <h3>Esqueceu sua senha?</h3>
+    <h5>Digite seu email para que um código de <br/>verificação seja enviado para você</h5>
+    <form>
+        <input type="email" name="email" value="" placeholder="Digite seu E-mail" required>
+    </form>
 
-<button class="" @onclick="esqueciSenha">Enviar Código</button>
+    <button class="botao_largo" @onclick="esqueciSenha">Enviar Código</button>
+</div>
 
 @code {
     private async void esqueciSenha()
     {
         await JsRuntime.InvokeVoidAsync("alert", "Código enviado com sucesso!!");
-        NavigationManager.NavigateTo("login");
+        NavigationManager.NavigateTo("login/redefinir-senha");
     }
 }

@@ -16,19 +16,19 @@
         <input class="login_input" type="password" required @bind="senha" placeholder="Digite sua senha" />
     </form>
 
-    <NavLink href="login/esqueci-senha">
+    <a class="nav-links" href="login/esqueci-senha">
         <div>Esqueceu a senha?</div>
-    </NavLink>
+    </a>
 
     <button type="button" class="botao_login" @onclick="TentarLogin">Login</button>
 
-    <NavLink href="login/criar-conta">
+    <a class="nav-links" href="login/criar-conta">
         <span>Criar conta</span>
-    </NavLink>
+    </a>
 
-    <NavLink class="lading_botao_iniciar" href="colaborador/login">
-        <span class="lading_texto_iniciar" aria-hidden="true">Sou colaborador</span>
-    </NavLink>
+    <a class="nav-links" href="colaborador/login">
+        <span>Sou colaborador</span>
+    </a>
 </div>
 
 @code {
@@ -38,6 +38,6 @@
     {
         
         await JsRuntime.InvokeVoidAsync("alert", "Login realizado com sucesso!!");
-        //NavigationManager.NavigateTo("/");
+        //NavigationManager.NavigateTo("/login");
     }
 }

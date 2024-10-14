@@ -1,16 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
     background-color: #006400;
     color: #CCFF33;
     font-family: 'Alfa Slab One';
     letter-spacing: 1px;
 }
 
-.lading_botao_iniciar {
-    color: orangered;
-    text-decoration: overline;
+button {
+    color: #006400;
+    background-color: #CCFF33;
+    border-color: #CCFF33;
+    height: 50px;
+    width: 100px;
+    display: block;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.nav-links {
+    color: #CCFF33;
+}
+
+.nav-links:hover {
+    color: #004B23;
+}
+
+a {
+    color: #CCFF33
+}
+
+a:hover {
+    color: #004B23;
 }
 
 input {
@@ -20,11 +43,44 @@ input {
     height: 50px;
     width: 350px;
     border-radius: 12px;
-
     display: block;
-
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.pagina_redefinir_senha {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.pagina_colaborador {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.pagina_criar_conta {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.pagina_esqueci_senha {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 40px;
+    text-align: center;
 }
 
 .pagina_login {
@@ -32,7 +88,32 @@ input {
     flex-direction: column; 
     justify-content: flex-start;
     align-items: center;
-    
+    margin-top: 40px;
+    text-align: center;
+}
+
+.pagina_sobre {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 40px;
+    text-align: justify;
+}
+
+.texto_sobre {
+    margin-top: 20px;
+    font-size: 19px;
+    display: block;
+    width: 750px;
+    text-align: justify;
+}
+
+.pagina_contato {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     margin-top: 40px;
 }
 
@@ -49,9 +130,56 @@ input {
     margin-bottom: 10px;
 }
 
-    .botao_login:hover {
-        border-color: #006400;
-    }
+button:hover {
+    border-color: #006400;
+}
+
+.botao_largo {
+    color: #006400;
+    background-color: #CCFF33;
+    border-color: #CCFF33;
+    height: 50px;
+    width: 150px;
+    display: block;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.contato_item {
+    color: lightblue;
+}
+
+.contato_item:hover {
+    color: royalblue
+}
+
+.pagina_home {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 40px;
+    text-align: center;
+}
+
+.margem-texto {
+    margin-top: 5px;
+}
+
+.cheque-box {
+    display: inline;
+    width: 27px;
+}
+
+.texto-cheque-box {
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.cheque-tudo {
+    display:table;
+}
 
 /*
 cores do site:

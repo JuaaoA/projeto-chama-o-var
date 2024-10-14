@@ -1,16 +1,25 @@
 ﻿@page "/"
+@rendermode InteractiveServer
+@inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
 
-<PageTitle>Chama o VAR - Homee</PageTitle>
+<PageTitle>Chama o VAR - Home</PageTitle>
 
-<div class="lading_page">
+<div class="pagina_home">
     <img src="#" alt="" class="logo_chama_o_var_inicial" />
 
-    <h1 class="lading_titulo">Sua torcida se diverte em segurança</h1>
+    <h3>Sua torcida se diverte em segurança</h3>
 
-    <p>O Chama o VAR administra sua audiência te despreocupando de conflitos em seu evento, seja jogos de futebol, festas e shows</p>
+    <p class="margem-texto">O Chama o VAR administra sua audiência te despreocupando de conflitos <br/> em seu evento, seja jogos de futebol, festas e shows</p>
 
-    <NavLink class="lading_botao_iniciar" href="login">
-        <span class="lading_texto_iniciar" aria-hidden="true">Iniciar</span>
-    </NavLink>
+    <button type="button" class="lading_botao_iniciar" @onclick="Iniciar">Iniciar</button>
 </div>
+
+@code {
+    private async void Iniciar()
+    {
+        await JsRuntime.InvokeVoidAsync("alert", "Sua segurança começa agora!!");
+        NavigationManager.NavigateTo("/login");
+    }
+}
 

@@ -5,16 +5,18 @@
 
 <PageTitle>Chama o VAR -  Redefina a senha</PageTitle>
 
-<h3>Redefinir Senha</h3>
-<h4>Foi enviado para esse email, digite o código e informe sua nova senha</h4>
+<div class="pagina_redefinir_senha">
+    <h3>Redefinir Senha</h3>
+    <h5>Um código foi enviado para esse email, <br/>digite-o e informe sua nova senha</h5>
 
-<form>
-    <input type="text" name="código" value="" placeholder="Digite o código" required>
-    <input type="password" name="senha" value="" placeholder="Digite sua nova senha" required>
-    <input type="password" name="nova-senha" value="" placeholder="Digite novamente sua nova senha" required>
-</form>
+    <form>
+        <input type="text" name="código" value="" placeholder="Digite o código" required>
+        <input type="password" name="senha" value="" placeholder="Digite sua nova senha" required>
+        <input type="password" name="nova-senha" value="" placeholder="Digite novamente sua nova senha" required>
+    </form>
 
-<button type="button" class="botao_atualizar_senha" @onclick=RedefineSenha>Redefinir senha</button>
+    <button type="button" class="botao_largo" @onclick=RedefineSenha>Redefinir senha</button>
+</div>
 
 @code {
     private async void RedefineSenha()
