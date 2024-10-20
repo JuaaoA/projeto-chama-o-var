@@ -177,8 +177,14 @@ button:hover {
     align-items: center;
 }
 
+.logo_chamaovar_nav > img {
+    height: 65px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
 .cheque-tudo {
-    display:table;
+    display: table;
 }
 
 /*
