@@ -8,6 +8,11 @@ html, body {
     letter-spacing: 1px;
 }
 
+.form-criar-conta input {
+    display: block;
+    margin-inline-start: 76px;
+}
+
 button {
     color: #006400;
     background-color: #CCFF33;
