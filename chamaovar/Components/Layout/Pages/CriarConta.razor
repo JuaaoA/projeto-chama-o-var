@@ -9,12 +9,12 @@
     <h3>Criar Conta</h3>
    
     <form method="post" class="form-criar-conta">
-        <input type="text" name="name" value="" placeholder="Digite seu nome completo" required/>
-        <input type="email" name="" value="" placeholder="Digite seu e-mail" required />
-        <input type="text" name="" value="" placeholder="Digite seu CPF" required />
-        <input type="password" name="" value="" placeholder="Digite sua senha" required />
-        <input type="password" name="" value="" placeholder="Digite novamente sua senha" required />
-        <input type="date" name="" value="" placeholder="Digite sua data de nascimento" required />
+        <input type="text" name="name" placeholder="Digite seu nome completo" required @bind="name"/>
+        <input type="email" name="" placeholder="Digite seu e-mail" required @bind="email" />
+        <input type="text" name="" placeholder="Digite seu CPF" required @bind="cpf" />
+        <input type="password" name="" placeholder="Digite sua senha" required @bind="password" />
+        <input type="password" name="" placeholder="Digite novamente sua senha" required @bind="confirmPassword" />
+        <input type="date" name="" placeholder="Digite sua data de nascimento" required @bind="date" />
         <div class="cheque-tudo">
             <input class="cheque-box" type="checkbox" name="" value="" required /> <span class="texto-cheque-box">Li e Concordo com os Termos de Serviço da plataforma</span>
         </div> 
@@ -28,6 +28,9 @@
 </div>
 
 @code {
+    private string? name, email, cpf, password, confirmPassword;
+    private DateTime? date;
+
     private async void ContaCriada()
     {
         await JsRuntime.InvokeVoidAsync("alert", "Conta criada com sucesso!!");

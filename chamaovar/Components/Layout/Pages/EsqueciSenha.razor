@@ -9,13 +9,15 @@
     <h3>Esqueceu sua senha?</h3>
     <h5>Digite seu email para que um código de <br/>verificação seja enviado para você</h5>
     <form>
-        <input type="email" name="email" value="" placeholder="Digite seu E-mail" required>
+        <input type="email" name="email" @bind="email" placeholder="Digite seu E-mail" required>
     </form>
 
     <button class="botao_largo" @onclick="esqueciSenha">Enviar Código</button>
 </div>
 
 @code {
+    public string? email;
+
     private async void esqueciSenha()
     {
         await JsRuntime.InvokeVoidAsync("alert", "Código enviado com sucesso!!");

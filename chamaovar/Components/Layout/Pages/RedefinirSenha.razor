@@ -10,15 +10,17 @@
     <h5>Um código foi enviado para esse email, <br/>digite-o e informe sua nova senha</h5>
 
     <form>
-        <input type="text" name="código" value="" placeholder="Digite o código" required>
-        <input type="password" name="senha" value="" placeholder="Digite sua nova senha" required>
-        <input type="password" name="nova-senha" value="" placeholder="Digite novamente sua nova senha" required>
+        <input type="text" name="código" placeholder="Digite o código" @bind="code" required>
+        <input type="password" name="senha" placeholder="Digite sua nova senha" @bind="password" required>
+        <input type="password" name="nova-senha" placeholder="Digite novamente sua nova senha" @bind="newPassword" required>
     </form>
 
     <button type="button" class="botao_largo" @onclick=RedefineSenha>Redefinir senha</button>
 </div>
 
 @code {
+    private string? code, password, newPassword;
+
     private async void RedefineSenha()
     {
         await JsRuntime.InvokeVoidAsync("alert", "Senha realizada com sucesso!!");

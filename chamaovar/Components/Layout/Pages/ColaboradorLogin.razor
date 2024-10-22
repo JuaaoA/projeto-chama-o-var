@@ -12,8 +12,8 @@
 
     <form>
 
-        <input class="login_input_email" type="email" required placeholder="Digite seu e-mail"/>
-        <input class="login_input_senha" type="password" required placeholder="Digite sua senha" />
+        <input class="login_input_email" type="email" @bind="email" required placeholder="Digite seu e-mail"/>
+        <input class="login_input_senha" type="password" @bind="password" required placeholder="Digite sua senha" />
 
     </form>
 
@@ -25,6 +25,8 @@
 </div>
 
 @code {
+    private string? email, password;
+
     private async void TentarLogin()
     {
         await JsRuntime.InvokeVoidAsync("alert", "Login realizado com sucesso!!");
