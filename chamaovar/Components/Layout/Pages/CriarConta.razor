@@ -2,6 +2,8 @@
 @rendermode InteractiveServer
 @inject IJSRuntime JsRuntime
 @inject NavigationManager NavigationManager
+@inject HttpClient http
+@using chamaovar.Components.Code
 
 <PageTitle>Chama o VAR -  Criar conta</PageTitle>
 
@@ -12,6 +14,7 @@
         <input type="text" name="name" placeholder="Digite seu nome completo" required @bind="name"/>
         <input type="email" name="" placeholder="Digite seu e-mail" required @bind="email" />
         <input type="text" name="" placeholder="Digite seu CPF" required @bind="cpf" />
+        <input type="text" name="" placeholder="Digite seu telefone" required @bind="telefone"/>
         <input type="password" name="" placeholder="Digite sua senha" required @bind="password" />
         <input type="password" name="" placeholder="Digite novamente sua senha" required @bind="confirmPassword" />
         <input type="date" name="" placeholder="Digite sua data de nascimento" required @bind="date" />
@@ -28,12 +31,15 @@
 </div>
 
 @code {
-    private string? name, email, cpf, password, confirmPassword;
+    private string? name, email, cpf, password, confirmPassword, telefone;
     private DateTime? date;
 
     private async void ContaCriada()
     {
         await JsRuntime.InvokeVoidAsync("alert", "Conta criada com sucesso!!");
         NavigationManager.NavigateTo("login");
+
+        //BackendConnection
+        await http.PostAsync($"/chamaovar-api/torcedor?nome_completo={name}&cpf={cpf}&email={email}&telefone={telefone}&nascimento={date}&senha={password}&tecnico={true}", null);
     }
 }
