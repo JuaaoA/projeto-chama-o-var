@@ -192,6 +192,53 @@ button:hover {
     display: table;
 }
 
+.menu-usuario h3{
+    text-align: center;
+    padding: 30px;
+}
+
+.menu-usuario {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.menu-usuario .score-box {
+    padding: 50px;
+}
+
+.score-bar {
+    border: 2.5px solid black;
+    border-radius: 20px;
+    width: 400px;
+    height: 50px;
+    background-color: #CCFF33;
+}
+
+.score-value {
+    border: 2px solid black;
+    border-radius: 15px;
+    width: 75%;
+    height: 100%;
+    background-color: #004B23;
+}
+
+.ocorrencias-box {
+    background-color: #004B23;
+    width: 450px;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.ocorrencias-box h4 {
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+} 
+
 /*
 cores do site:
 

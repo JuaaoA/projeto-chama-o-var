@@ -3,6 +3,8 @@
     
 }
 
+
+
 a {
     color: #CCFF33;
 }
@@ -14,19 +16,21 @@ a:hover {
 .lista_botoes_nav {
     display: flex;
     justify-content: space-between;
+    list-style: none;
 }
 
 .texto_nav {
     color: #CCFF33;
     text-decoration: none;
     font-size: 25px;
+    list-style: none;
 }
 
 .texto_nav:hover {
     color: white;
 }
 
-botao_login_nav:hover {
+.botao_login_nav:hover {
     color: white;
 }
 
@@ -47,6 +51,7 @@ botao_login_nav:hover {
     margin-left: 50px;
     margin-right: 50px;
     list-style-type: none;
+    list-style: none;
 }
 
 .texto_login {
@@ -61,10 +66,6 @@ botao_login_nav:hover {
     margin-bottom: 5px;
     margin-top: -15px;
     margin-right: 5px;
-}
-
-NavLink {
-    text-decoration: none;
 }
 
 @media (min-width: 641px) {
