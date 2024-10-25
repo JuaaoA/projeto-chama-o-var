@@ -19,7 +19,7 @@
         <input type="password" name="" placeholder="Digite novamente sua senha" required @bind="confirmPassword" />
         <input type="date" name="" placeholder="Digite sua data de nascimento" required @bind="date" />
         <div class="cheque-tudo">
-            <input class="cheque-box" type="checkbox" name="" value="" required /> <span class="texto-cheque-box">Li e Concordo com os Termos de Serviço da plataforma</span>
+            <input class="cheque-box" type="checkbox" name="" value="" required @bind="aceitouTermos"/> <span class="texto-cheque-box">Li e Concordo com os Termos de Serviço da plataforma</span>
         </div> 
     </form>
 
@@ -32,14 +32,62 @@
 
 @code {
     private string? name, email, cpf, password, confirmPassword, telefone;
-    private DateTime? date;
+    private DateTime date;
+
+    private bool aceitouTermos;
 
     private async void ContaCriada()
     {
-        await JsRuntime.InvokeVoidAsync("alert", "Conta criada com sucesso!!");
-        NavigationManager.NavigateTo("login");
+        // Retirar valores nulos
+        this.AntiNull();
 
-        //BackendConnection
-        await http.PostAsync($"/chamaovar-api/torcedor?nome_completo={name}&cpf={cpf}&email={email}&telefone={telefone}&nascimento={date}&senha={password}&tecnico={true}", null);
+        // Verificar no front se tudo deu certo
+        ValidationResult front = InputValidation.ValidarCriarConta(cpf, email, telefone, date, name, password, confirmPassword, aceitouTermos);
+
+        if (!front.success)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", $"{front.textResult}");
+            return;
+        }
+
+        // Verificar se os dados ja existem no Sistema
+        var isUnico = await http.GetAsync($"/chamaovar-api/torcedor/verificar-unico?cpf={cpf}&email={email}&telefone={telefone}");
+
+        // Realizar um post caso os dados sejam unicos
+        if ((int)isUnico.StatusCode == 200)
+        {
+            try
+            {
+                // Realizar o post
+                await http.PostAsync($"/chamaovar-api/torcedor?nome_completo={name}&" +
+                    $"cpf={cpf}&email={email}&telefone={telefone}&nascimento={date}&" +
+                    $"senha={password}&tecnico={true}", null);
+
+                // Indicar que a conta foi criada
+                await JsRuntime.InvokeVoidAsync("alert", "Conta criada com sucesso!!");
+                NavigationManager.NavigateTo("login");
+            }
+            catch
+            {
+                // Caso dê errado
+                await JsRuntime.InvokeVoidAsync("alert", "Ocorreu um erro");
+            }
+        }
+        else
+        {
+            // Alertar o erro
+            await JsRuntime.InvokeVoidAsync("alert", $"{await isUnico.Content.ReadAsStringAsync()}");
+        }
+
+    }
+
+    private void AntiNull()
+    {
+        if (name == null) name = "";
+        if (cpf == null) cpf = "";
+        if (email == null) email = "";
+        if (password == null) password = "";
+        if (confirmPassword == null) confirmPassword = "";
+        if (telefone == null) telefone = "";
     }
 }
