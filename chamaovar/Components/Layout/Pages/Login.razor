@@ -2,6 +2,8 @@
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
+@inject HttpClient http
+@using chamaovar.Components.Code
 
 <PageTitle>Chama o VAR - Login</PageTitle>
 
@@ -34,10 +36,61 @@
 @code {
     private string? email, senha;
 
-    private async void TentarLogin()    
+    private async void TentarLogin()
     {
-        
-        await JsRuntime.InvokeVoidAsync("alert", "Login realizado com sucesso!!");
-        //NavigationManager.NavigateTo("/login");
+        if (email == null)
+        {
+            email = "";
+        }
+
+        if (senha == null)
+        {
+            senha = "";
+        }
+
+        // Validar se os dados estão corretamente colocados aqui no front
+        ValidationResult validacaoFront = InputValidation.ValidarLogin(email, senha);
+
+        // Se algo ocorrer errado na validação do front
+        if (!validacaoFront.success)
+        {
+            // Indicar o erro que aconteceu
+            await JsRuntime.InvokeVoidAsync("alert", validacaoFront.textResult);
+
+            // Retornar sem continuar
+            return;
+        }
+
+        // Caso o contrário, o backend irá fazer o trabalho de procurar o usuário
+        try
+        {
+            // Realizar o get
+            var response = await http.GetAsync($"/chamaovar-api/torcedor/login?email={email}&senha={senha}");
+
+            // Código status
+            int loginStatusCode = (int)response.StatusCode;
+
+            // Caso algum erro tenha ocorrido
+            if (loginStatusCode == 500 || loginStatusCode == 400)
+            {
+                // Indicar o erro
+                await JsRuntime.InvokeVoidAsync("alert", $"{await response.Content.ReadAsStringAsync()}");
+
+                // Impedir o usuário de continuar
+                return;
+            }
+
+            // TODO - Caso dê tudo certo, continuar
+            await JsRuntime.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
+
+            
+            //NavigationManager.NavigateTo("/login");
+        }
+        catch (Exception e)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", $"Ocorreu um erro ao realizar o login : {e}");
+        }
+
+
     }
 }

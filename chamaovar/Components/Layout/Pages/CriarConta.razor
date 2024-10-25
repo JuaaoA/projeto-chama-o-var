@@ -41,6 +41,9 @@
         // Retirar valores nulos
         this.AntiNull();
 
+        // Retirar caracteres indesejados
+        this.AntiWrongChar();
+
         // Verificar no front se tudo deu certo
         ValidationResult front = InputValidation.ValidarCriarConta(cpf, email, telefone, date, name, password, confirmPassword, aceitouTermos);
 
@@ -79,6 +82,15 @@
             await JsRuntime.InvokeVoidAsync("alert", $"{await isUnico.Content.ReadAsStringAsync()}");
         }
 
+    }
+
+    private void AntiWrongChar()
+    {
+        // Remover espaços, pontos e traços do cpf
+        this.cpf = cpf.Replace(" ", "").Replace(".", "").Replace("-", "");
+
+        // Remover espaços, parenteses e qualquer outro caracter que atrapalhe o cadastro
+        this.telefone = telefone.Replace(" ", "").Replace("(", "").Replace(")", "").Replace("-", "");
     }
 
     private void AntiNull()

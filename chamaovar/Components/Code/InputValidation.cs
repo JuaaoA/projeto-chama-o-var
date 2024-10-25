@@ -4,6 +4,28 @@ namespace chamaovar.Components.Code
 {
 	public static class InputValidation
 	{
+        public static ValidationResult ValidarLogin(string? email, string? senha)
+        {
+            ValidationResult resultado = new ValidationResult();
+
+            if (email == "")
+            {
+                resultado.success = false;
+                resultado.textResult = "Por favor, Digite um email";
+            }
+            else if (senha == "")
+            {
+                resultado.success = false;
+                resultado.textResult = "Por favor, insira a senha";
+            }
+            else
+            {
+                resultado.success = true;
+            }
+
+            return resultado;
+        }
+
 		public static ValidationResult ValidarCriarConta(string? cpf,
             string? email, string? telefone, DateTime datanasc, string? name,
             string? password, string? confirmPassword, bool aceitouTermos)
