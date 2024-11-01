@@ -1,6 +1,9 @@
 ﻿@page "/colaborador/login"
 @rendermode InteractiveServer
 @inject IJSRuntime JsRuntime
+@inject NavigationManager NavigationManager
+@inject HttpClient http
+@using chamaovar.Components.Code
 
 <PageTitle>Entre como colaborador - Chama o VAR</PageTitle>
 
@@ -13,7 +16,7 @@
     <form>
 
         <input class="login_input_email" type="email" @bind="email" required placeholder="Digite seu e-mail"/>
-        <input class="login_input_senha" type="password" @bind="password" required placeholder="Digite sua senha" />
+        <input class="login_input_senha" type="password" @bind="senha" required placeholder="Digite sua senha" />
 
     </form>
 
@@ -25,10 +28,67 @@
 </div>
 
 @code {
-    private string? email, password;
+    private string? email, senha;
 
     private async void TentarLogin()
     {
+        if (email == null)
+        {
+            email = "";
+        }
+
+        if (senha == null)
+        {
+            senha = "";
+        }
+
+        // Validar se os dados estão corretamente colocados aqui no front
+        ValidationResult validacaoFront = InputValidation.ValidarLogin(email, senha);
+
+        // Se algo ocorrer errado na validação do front
+        if (!validacaoFront.success)
+        {
+            // Indicar o erro que aconteceu
+            await JsRuntime.InvokeVoidAsync("alert", validacaoFront.textResult);
+
+            // Retornar sem continuar
+            return;
+        }
+
+        // Caso o contrário, o backend irá fazer o trabalho de procurar o usuário
+        try
+        {
+            // Realizar o get
+            var response = await http.GetAsync($"/chamaovar-api/colaborador/login?email={email}&senha={senha}");
+
+            // Código status
+            int loginStatusCode = (int)response.StatusCode;
+
+            // Caso algum erro tenha ocorrido
+            if (loginStatusCode == 500 || loginStatusCode == 400)
+            {
+                // Indicar o erro
+                await JsRuntime.InvokeVoidAsync("alert", $"{await response.Content.ReadAsStringAsync()}");
+
+                // Impedir o usuário de continuar
+                return;
+            }
+
+            // TODO - Caso dê tudo certo, continuar
+            await JsRuntime.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
+
+            // Inserir o token novo no json
+            TokenSystem.InserirNovoToken(await response.Content.ReadAsStringAsync());
+
+            // Navegar para a pagina do usuário
+            NavigationManager.NavigateTo("/menu-usuario");
+        }
+        catch (Exception e)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", $"Ocorreu um erro ao realizar o login : {e}");
+        }
+
+
         await JsRuntime.InvokeVoidAsync("alert", "Login realizado com sucesso!!");
         //NavigationManager.NavigateTo();
     }

@@ -83,14 +83,15 @@
             // TODO - Caso dê tudo certo, continuar
             await JsRuntime.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
 
-            
-            //NavigationManager.NavigateTo("/login");
+            // Inserir o token novo no json
+            TokenSystem.InserirNovoToken(await response.Content.ReadAsStringAsync());
+
+            // Navegar para a pagina do usuário
+            NavigationManager.NavigateTo("/menu-usuario");
         }
         catch (Exception e)
         {
             await JsRuntime.InvokeVoidAsync("alert", $"Ocorreu um erro ao realizar o login : {e}");
         }
-
-
     }
 }

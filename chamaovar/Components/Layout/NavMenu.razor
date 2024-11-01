@@ -1,4 +1,8 @@
-﻿<nav class="navegacao_tudo">
+﻿@using chamaovar.Components.Code
+@using System.Text.RegularExpressions
+@rendermode InteractiveServer
+
+<nav class="navegacao_tudo">
 
     <div class="navegacao_container">
 
@@ -30,12 +34,12 @@
             </ul>
 
         </div>
-           
+
         <div class="botao_login_nav">
             <a href="login">
-                <span>Fazer Login</span>
-                   
-                <img src="img/profile-user.png" class="icone_usuario"/>
+                <span> @nome_usuario </span>
+
+                <img src="img/profile-user.png" class="icone_usuario" />
             </a>
         </div>
 
@@ -48,8 +52,36 @@
     private string? NavBarCssClass => collapseNavMenu ? null : "show";
     private string? NavButtonCssClass => collapseNavMenu ? "collapsed" : null;
 
+    public string nome_usuario = "Fazer Login";
+
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    public async Task UpdateNav()
+    {
+        // Procurar torcedor pelo token
+        Torcedor? user = await TokenSystem.GetTorcedorByToken();
+
+        // socorro eu to em crise
+        if (user == null)
+        {
+            // Manter o fazer login
+            nome_usuario = "Fazer Login";
+
+            // Retonar e não fazer mais nada
+            return;
+        }
+
+        // Caso o usuário esteja logado
+        nome_usuario = user.nome_completo;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UpdateNav();
+
+        //return base.OnInitializedAsync();
     }
 }

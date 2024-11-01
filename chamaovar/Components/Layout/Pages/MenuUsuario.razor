@@ -1,9 +1,14 @@
 ﻿@page "/menu-usuario"
+@rendermode InteractiveServer
+@inject NavigationManager nav
+@inject IJSRuntime JsRuntime
+@inject HttpClient http
+@using chamaovar.Components.Code
 
 <PageTitle>Menu Usuario</PageTitle>
 
 <div class="menu-usuario">
-    <h3>Bem vindo, Usuário</h3>
+    <h3>Bem vindo, @nome_exibicao !</h3>
 
     <div class="line"></div>
 
@@ -11,7 +16,7 @@
         <h4>Sua pontuação: </h4>
         
         <div class="score-bar">
-            <div class="score-value"></div>
+            <div class="score-value" style="width: @valor_score%"></div>
         </div>
     </div>
 
@@ -21,3 +26,31 @@
         <div class="ocorrencias"></div>
     </div>
 </div>
+
+@code {
+
+    private string nome_exibicao = "Usuário";
+    private int valor_score = 100;
+
+    // Ao iniciar a página
+    protected override async Task OnInitializedAsync()
+    {
+        // Pegar os dados do Torcedor
+        Torcedor? user = await TokenSystem.GetTorcedorByToken();
+
+        // Caso usuário não esteja logado
+        if (user == null)
+        {
+            // Voltar ao login
+            nav.NavigateTo("/login");
+
+            // Retornar impedindo que continue
+            return;
+        }
+
+        // Caso o usuário esteja devidamente logado
+        nome_exibicao = user.nome_completo;
+
+        //return base.OnInitializedAsync();
+    }
+}

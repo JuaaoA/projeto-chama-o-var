@@ -11,16 +11,18 @@
     <h3>Criar Conta</h3>
    
     <form method="post" class="form-criar-conta">
-        <input type="text" name="name" placeholder="Digite seu nome completo" required @bind="name"/>
+        <input type="text" name="name" placeholder="Digite seu nome completo" required @bind="name" />
         <input type="email" name="" placeholder="Digite seu e-mail" required @bind="email" />
         <input type="text" name="" placeholder="Digite seu CPF" required @bind="cpf" />
-        <input type="text" name="" placeholder="Digite seu telefone" required @bind="telefone"/>
+        <input type="text" name="" placeholder="Digite seu telefone" required @bind="telefone" />
         <input type="password" name="" placeholder="Digite sua senha" required @bind="password" />
         <input type="password" name="" placeholder="Digite novamente sua senha" required @bind="confirmPassword" />
         <input type="date" name="" placeholder="Digite sua data de nascimento" required @bind="date" />
         <div class="cheque-tudo">
-            <input class="cheque-box" type="checkbox" name="" value="" required @bind="aceitouTermos"/> <span class="texto-cheque-box">Li e Concordo com os Termos de Serviço da plataforma</span>
-        </div> 
+            <input class="cheque-box" type="checkbox" name="" value="" required @bind="aceitouTermos" /> <span class="texto-cheque-box">Li e Concordo com os Termos de Serviço da plataforma</span>
+        </div>
+
+        <button type="reset" class="botao_largo">Refazer</button>
     </form>
 
     <button type="button" class="botao_largo" name="" value="" @onclick="ContaCriada">Criar conta</button>
