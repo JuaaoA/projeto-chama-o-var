@@ -237,7 +237,61 @@ button:hover {
 
 a {
     text-decoration: none;
-} 
+}
+
+.menu-colaborador {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+    .menu-colaborador h3 {
+        padding: 30px;
+    }
+
+.menu-editar-ocorrencias {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;
+}
+
+.buscar-ocorrencias {
+    display: flex;
+    margin: 10px;
+}
+
+    .buscar-ocorrencias input {
+        margin: 10px;
+    }
+
+    .buscar-ocorrencias button {
+        margin: 10px;
+    }
+
+.lista-ocorrencias {
+}
+
+.item-ocorrencias {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #CCFF33;
+    border-radius: 10px;
+    width: 800px;
+    background-color: #004B23;
+}
+
+.info-ocorrencia {
+    border: 2px solid #CCFF33;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
 
 /*
 cores do site:
