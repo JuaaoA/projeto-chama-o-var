@@ -1,0 +1,192 @@
+﻿@rendermode InteractiveServer
+@using chamaovar.Components.Code
+@inject IJSRuntime JsRuntime
+@inject HttpClient http
+
+
+@if (!deleted)
+{
+    <div class="item-ocorrencias">
+        <div class="info-ocorrencia">Ocor. #@num_oco</div>
+        <div class="info-ocorrencia">Torc. #@autor_id <button class="info-ocorrencia" @onclick="Revelar">Revelar</button> </div>
+        <div class="info-ocorrencia">@acontecimento</div>
+        <div class="info-ocorrencia">- @penalidade</div>
+        <div class="info-ocorrencia">@DateOnly.FromDateTime(data)</div>
+        <button class="info-ocorrencia" @onclick="ToggleEditar">Editar</button>
+        <button class="info-ocorrencia" @onclick="ToggleApagar">Apagar</button>
+    </div>
+
+    <div class="campos_item_ocorrencia">
+
+        @if (isEditing)
+        {
+            <input type="text" class="input-search" @bind="acontecimento_edit" placeholder="Acontecimento..." />
+            <input type="number" class="input-search" @bind="penalidade_edit" placeholder="penalidade..." />
+            <input type="datetime" class="input-search" @bind="data_edit" placeholder="data..." />
+            <button @onclick="EnviarEdicao">Enviar</button>
+        }
+
+        @if (isDeleting)
+        {
+            <p class="info-ocorrencia">Tem certeza que deseja apagar esta ocorrência?</p>
+
+            <button class="info-ocorrencia" @onclick="ToggleApagar">Não</button>
+
+            <button class="info-ocorrencia" @onclick="ApagarOcorrencia">Sim</button>
+        }
+    </div>
+}
+
+
+@code {
+
+    // Parâmetros
+    [Parameter]
+    public int num_oco { get; set; }
+
+    [Parameter]
+    public int autor_id { get; set; }
+
+    [Parameter]
+    public string acontecimento { get; set; }
+
+    [Parameter]
+    public int penalidade { get; set; }
+
+    [Parameter]
+    public DateTime data { get; set; }
+
+    // Edição
+    public string? acontecimento_edit { get; set; }
+    public int penalidade_edit { get; set; }
+    public DateTime data_edit { get; set; }
+
+    public bool isEditing;
+    public bool isDeleting;
+
+    public bool deleted = false;
+
+    public string VerificarEdit()
+    {
+        // Acontecimento
+        if (acontecimento_edit.Length == 0 || acontecimento_edit == null) return "Valor inválido do acontecimento";
+
+        // Penalidade
+        if (penalidade_edit <= 0 || penalidade_edit > 1000) return "Valor inválido de penalidade!";
+
+        // Data
+        if (data_edit.CompareTo(DateTime.Now) > 0) return "A data está inválida!";
+
+        // Caso não haja problemas
+        return "Ok";
+    }
+
+    public async void ApagarOcorrencia()
+    {
+        // Pedir para o backend apagar a ocorrência com o id
+        var resposta = await http.DeleteAsync($"/chamaovar-api/ocorrencia?id={num_oco}");
+
+        // Pegar o status code
+        int codigo = (int)resposta.StatusCode;
+
+        // Se deu erro
+        /*
+        if (codigo != 200)
+        {
+            // Informar e não continuar
+            await JsRuntime.InvokeVoidAsync("alert", "Ocorreu um erro ao apagar a ocorrência!");
+
+            return;
+        }
+        */
+
+        // Se deu certo
+        // Definir como apagado
+        deleted = true;
+
+        return;
+    }
+
+    public async void EnviarEdicao()
+    {
+        // Verificar se ta tudo certo
+        string verificacaoFront = this.VerificarEdit();
+        if (verificacaoFront != "Ok")
+        {
+            // Indicar erro
+            await JsRuntime.InvokeVoidAsync("alert", verificacaoFront);
+
+            // Impedir de continuar
+            return;
+        }
+
+        var retorno = await http.PatchAsync($"/chamaovar-api/ocorrencia?id={num_oco}" +
+            $"&acontecimento={acontecimento_edit}" +
+            $"&data={data_edit}" +
+            $"&penalidade={penalidade_edit}", null);
+
+        // Verificar se tudo deu errado
+        int codigo = (int)retorno.StatusCode;
+
+        string retorno_edit = await retorno.Content.ReadAsStringAsync();
+
+        if (codigo != 200)
+        {
+            // Avisar num alert o erro
+            await JsRuntime.InvokeVoidAsync("alert", retorno_edit);
+
+            // Impedir de continuar
+            return;
+        }
+
+        // Caso deu certo
+        // Transformar em novos valores
+        acontecimento = acontecimento_edit;
+        penalidade = penalidade_edit;
+        data = data_edit;
+
+        // Desativar a edição
+        isEditing = false;
+    }
+
+    public void ToggleEditar()
+    {
+        // Impedir editar e deletar ao mesmo tempo
+        isDeleting = false;
+
+        // Definir valores
+        acontecimento_edit = acontecimento;
+        penalidade_edit = penalidade;
+        data_edit = data;
+
+        // Definir que está editando ou não
+        this.isEditing = !isEditing;
+    }
+
+    public void ToggleApagar()
+    {
+        // Impedir editar e deletar ao mesmo tempo
+        isEditing = false;
+
+        // Definir se está apagando ou não
+        isDeleting = !isDeleting;
+    }
+
+    public async void Revelar()
+    {
+        // Pegar os dados do torcedor que foi selecionado
+        Torcedor? tcd = await TokenSystem.GetTorcedorById(autor_id);
+
+        // Mostrar dados do torcedor
+        await JsRuntime.InvokeVoidAsync("alert", $"Nome: {tcd.nome_completo}\n" +
+                                                 $"CPF: {tcd.cpf}\n" +
+                                                 $"Pontuação: {tcd.score}");
+    }
+
+    // Ao inicializar
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+}
+

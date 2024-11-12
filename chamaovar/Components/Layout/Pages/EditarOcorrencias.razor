@@ -1,4 +1,7 @@
 ﻿@page "/menu-colaborador/editar"
+@rendermode InteractiveServer
+@using chamaovar.Components.Code
+@inject IJSRuntime JsRuntime
 
 <PageTitle>Editar Ocorrencias</PageTitle>
 
@@ -11,21 +14,49 @@
     </div>
 
     <div class="lista-ocorrencias">
-        <div class="item-ocorrencias">
-            <div class="info-ocorrencia">Num. Ocorrencia</div>
-            <div class="info-ocorrencia">Autor</div>
-            <div class="info-ocorrencia">Evento</div>
-            <div class="info-ocorrencia">Acontencimento</div>
-            <div class="info-ocorrencia">Data</div>
-            <button class="info-ocorrencia">Editar</button>
-        </div>
-        <div class="item-ocorrencias">
-            <div class="info-ocorrencia">Num. Ocorrencia</div>
-            <div class="info-ocorrencia">Autor</div>
-            <div class="info-ocorrencia">Evento</div>
-            <div class="info-ocorrencia">Acontencimento</div>
-            <div class="info-ocorrencia">Data</div>
-            <button class="info-ocorrencia">Editar</button>
-        </div>
+        @if (todas_ocorrencias != null)
+        {
+            @foreach (Ocorrencias o in todas_ocorrencias)
+            {
+                <ListaOcorrenciaItem
+                                     num_oco="@o.id"
+                                     autor_id="@o.torcedor"
+                                     acontecimento="@o.acontecimento"
+                                     penalidade="@o.penalidade"
+                                     data="@o.data_ocorrencia"
+
+                                     ></ListaOcorrenciaItem>
+            }
+        }
+
     </div>
 </div>
+
+@code
+{
+    public List<Ocorrencias>? todas_ocorrencias;
+
+    public async Task<string> GetTorcedorNome(int id)
+    {
+        // Pedir para o sistema pegar o torcedor la ele
+        Torcedor? tcd = await TokenSystem.GetTorcedorById(id);
+
+        // Pegar o nome
+        return tcd.nome_completo;
+    }
+
+    public async void teste()
+    {
+        // debug - mostrar cada uma das ocorrências todo
+        foreach (Ocorrencias oc in todas_ocorrencias)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", oc.acontecimento);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Pegar todas as ocorrências
+        todas_ocorrencias = await OcorrenciasJSON.JsonToOcorrencias();
+    }
+}

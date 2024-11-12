@@ -52,7 +52,32 @@ namespace chamaovar.Components.Code
 			return null;
 		}
 
-		public static Token? GetToken()
+		public static async Task<Torcedor?> GetTorcedorById(int id)
+		{
+            // Iniciar http
+            HttpClient http = new HttpClient();
+
+            // Realizar um Get do torcedor
+            var resultado = await http.GetAsync($"https://localhost:7094/chamaovar-api/torcedor/get?torcedorId={id}");
+
+			// Pegar o status code do get
+			int statusCode = (int)resultado.StatusCode;
+
+			// Se o Resultado deu 200, ou seja, deu certo
+			if (statusCode == 200)
+			{
+				// Pegar o torcedor no json indicado
+				Torcedor? tcdr = JsonSerializer.Deserialize<Torcedor>(await resultado.Content.ReadAsStringAsync());
+
+				// Retornar o torcedor
+				return tcdr;
+			}
+
+            // Caso o resultado tenha dado erro, retornar nulo
+            return null;
+        }
+
+        public static Token? GetToken()
 		{
 			// Ler o arquivo de json e armazenar em texto numa variável
 			string jsonToken = File.ReadAllText("token.json");
