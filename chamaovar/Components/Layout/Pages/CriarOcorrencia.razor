@@ -1,0 +1,54 @@
+﻿@page "/criar-ocorrencia"
+@rendermode InteractiveServer
+@using chamaovar.Components.Code
+@inject IJSRuntime JsRuntime
+
+<PageTitle>Criar Ocorrência</PageTitle>
+
+<div class="menu-colaborador">
+    <h3>Crie sua ocorrência aqui</h3>
+
+    <form action="/" method="post">
+    <fieldset>
+        <legend>Informações do ocorrido no evento</legend>
+        <input min="1" type="number" name="Nome" id="" placeholder="Número da ocorrência">
+        <input type="text" placeholder="Nome do evento">
+        <input type="text" placeholder="Localização do evento">
+        <label for="acontecimento">Acontecimento</label>
+        <br />
+        <select>
+            <option>Acontecimento</option>
+            <option value="agressao-fisica">Agressão Física</option>
+            <option value="dano-patrimonio">Dano ao patrimônio</option>
+            <option value="insultos-verbais">Insultos verbais</option>
+            <option value="racismo-discriminacao">Racismo ou discriminação</option>
+            <option value="provocar-tumulto">Provocar tumulto ou desordem</option>
+        </select>
+        <br /><br /><br />
+
+        <legend>Informações do indivíduo</legend>
+        <input type="text" placeholder="Nome do indivíduo">
+        <label for="sexo">Sexo</label>
+        <br />
+        <select>
+            <option>Sexo</option>
+            <option value="masculino">M</option>
+            <option value="feminino">F</option>
+        </select>
+        <br /><br />
+        <label for="nascimento">Data de nascimento</label>
+        <input name="nascimento" type="date" placeholder="Data de nascimento">
+        <input type="number" min="0" placeholder="CPF do indivíduo">
+
+        <textarea name="" id="detalhamento" placeholder="Descrição"></textarea>
+        <div class="botoes-criar-ocorrencia">
+            <button type="submit">Criar Ocorrência</button>
+            <button type="reset">Resetar dados</button>
+        </div>
+    </fieldset>
+</form>
+</div>
+
+@code {
+
+}

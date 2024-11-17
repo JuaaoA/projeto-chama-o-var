@@ -151,6 +151,12 @@ button:hover {
     margin-bottom: 10px;
 }
 
+.botao_largo a {
+    text-decoration: none;
+    color: #006400;
+    width: 120px;
+}
+
 .contato_item {
     color: lightblue;
 }
@@ -292,6 +298,34 @@ a {
     margin: 10px;
 }
 
+form fieldset select {
+    background-color: #CCFF33;
+    color:gray;
+}
+
+form fieldset input {
+    background-color: #CCFF33;
+    color: gray;
+}
+
+
+form fieldset textarea {
+    background-color: #CCFF33;
+    color: gray;
+    border-radius: 12px;
+    height: 100px;
+    width: 350px;
+
+}
+
+.botoes-criar-ocorrencia {
+    display: flex;
+    gap: 56px;
+}
+
+form button {
+    width:auto;
+}
 
 /*
 cores do site:
