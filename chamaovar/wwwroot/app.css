@@ -278,6 +278,7 @@ a {
     }
 
 .lista-ocorrencias {
+    padding: 50px;
 }
 
 .item-ocorrencias {
@@ -287,8 +288,12 @@ a {
     margin: 10px;
     border: 2px solid #CCFF33;
     border-radius: 10px;
-    width: 800px;
+    width: 850px;
     background-color: #004B23;
+}
+
+.item-ocorrencias button {
+    width:100px;
 }
 
 .info-ocorrencia {
@@ -296,6 +301,8 @@ a {
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
+    width: 150px;
+    
 }
 
 form fieldset select {
@@ -331,11 +338,11 @@ form button {
 cores do site:
 
 fundo-header: verde muito escuro (004B23)
-escrita: verde limão claro (CCFF33)
+escrita: verde limï¿½o claro (CCFF33)
 background: verde escuro (006400)
-fazer-login/usuário/colab: verde limão claro (CCFF33)
-botões: verde limão claro (CCFF33)
-escrita-botão: verde muito escuro (004B23)
-placeholders: verde limão claro (CCFF33)
+fazer-login/usuï¿½rio/colab: verde limï¿½o claro (CCFF33)
+botï¿½es: verde limï¿½o claro (CCFF33)
+escrita-botï¿½o: verde muito escuro (004B23)
+placeholders: verde limï¿½o claro (CCFF33)
 escrita-placeholders: verde muito escuro (004B23)
 */  

@@ -20,7 +20,15 @@
 
     private async void esqueciSenha()
     {
-        await JsRuntime.InvokeVoidAsync("alert", "Código enviado com sucesso!!");
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Código enviado com sucesso!!");
+        }
+        catch
+        {
+
+        }
+
         NavigationManager.NavigateTo("login/redefinir-senha");
     }
 }

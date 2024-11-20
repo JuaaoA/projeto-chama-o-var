@@ -74,20 +74,34 @@
             if (loginStatusCode == 500 || loginStatusCode == 400)
             {
                 // Indicar o erro
-                await JsRuntime.InvokeVoidAsync("alert", $"{await response.Content.ReadAsStringAsync()}");
+                try
+                {
+                    await JsRuntime.InvokeVoidAsync("alert", $"{await response.Content.ReadAsStringAsync()}");
+                }
+                catch
+                {
+
+                }
 
                 // Impedir o usuário de continuar
                 return;
             }
 
-            // TODO - Caso dê tudo certo, continuar
-            await JsRuntime.InvokeVoidAsync("alert", await response.Content.ReadAsStringAsync());
+            // Caso dê tudo certo, continuar
+            try
+            {
+                await JsRuntime.InvokeVoidAsync("alert", $"{await response.Content.ReadAsStringAsync()}");
+            }
+            catch
+            {
+
+            }
 
             // Inserir o token novo no json
             TokenSystem.InserirNovoToken(await response.Content.ReadAsStringAsync());
 
             // Navegar para a pagina do usuário
-            NavigationManager.NavigateTo("/menu-usuario");
+            NavigationManager.NavigateTo("/menu-usuario", true);
         }
         catch (Exception e)
         {

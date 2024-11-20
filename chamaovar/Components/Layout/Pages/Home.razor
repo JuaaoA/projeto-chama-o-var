@@ -18,7 +18,15 @@
 @code {
     private async void Iniciar()
     {
-        await JsRuntime.InvokeVoidAsync("alert", "Sua segurança começa agora!!");
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Sua segurança começa agora!!");
+        }
+        catch
+        {
+
+        }
+
         NavigationManager.NavigateTo("/login");
     }
 }

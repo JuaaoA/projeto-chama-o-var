@@ -2,6 +2,8 @@
 @rendermode InteractiveServer
 @using chamaovar.Components.Code
 @inject IJSRuntime JsRuntime
+@inject HttpClient http
+@inject NavigationManager nav
 
 <PageTitle>Criar Ocorrência</PageTitle>
 
@@ -11,38 +13,30 @@
     <form action="/" method="post">
     <fieldset>
         <legend>Informações do ocorrido no evento</legend>
-        <input min="1" type="number" name="Nome" id="" placeholder="Número da ocorrência">
-        <input type="text" placeholder="Nome do evento">
-        <input type="text" placeholder="Localização do evento">
+
+        <input type="number" placeholder="Penalidade" @bind="penalidade">
+        <input type="datetime" placeholder="Data da ocorrência" @bind="dataCriar">
+
         <label for="acontecimento">Acontecimento</label>
+
         <br />
-        <select>
+
+        <select @bind="acontecimentoCriar">
             <option>Acontecimento</option>
-            <option value="agressao-fisica">Agressão Física</option>
-            <option value="dano-patrimonio">Dano ao patrimônio</option>
-            <option value="insultos-verbais">Insultos verbais</option>
-            <option value="racismo-discriminacao">Racismo ou discriminação</option>
-            <option value="provocar-tumulto">Provocar tumulto ou desordem</option>
+            <option value="Agressão Física">Agressão Física</option>
+            <option value="Dano ao patrimônio">Dano ao patrimônio</option>
+            <option value="Insultos verbais">Insultos verbais</option>
+            <option value="Racismo ou discriminação">Racismo ou discriminação</option>
+            <option value="Provocar tumulto ou desordem">Provocar tumulto ou desordem</option>
         </select>
+
         <br /><br /><br />
-
         <legend>Informações do indivíduo</legend>
-        <input type="text" placeholder="Nome do indivíduo">
-        <label for="sexo">Sexo</label>
-        <br />
-        <select>
-            <option>Sexo</option>
-            <option value="masculino">M</option>
-            <option value="feminino">F</option>
-        </select>
-        <br /><br />
-        <label for="nascimento">Data de nascimento</label>
-        <input name="nascimento" type="date" placeholder="Data de nascimento">
-        <input type="number" min="0" placeholder="CPF do indivíduo">
 
-        <textarea name="" id="detalhamento" placeholder="Descrição"></textarea>
+        <input type="text" placeholder="CPF do indivíduo" @bind="cpfTorcedor">
+
         <div class="botoes-criar-ocorrencia">
-            <button type="submit">Criar Ocorrência</button>
+            <button type="button" @onclick="Enviar">Criar Ocorrência</button>
             <button type="reset">Resetar dados</button>
         </div>
     </fieldset>
@@ -51,4 +45,111 @@
 
 @code {
 
+    public string acontecimentoCriar;
+    public string cpfTorcedor;
+
+    public DateTime dataCriar;
+
+    public int penalidade;
+
+    public async void Enviar()
+    {
+        // Evitar que valores nulos atrapalhem
+        if (!await this.AvoidErrors()) return;
+
+        // Caso o frontend não encontre problemas, continuar
+        // Enviar para o backend os valores novos
+        var resposta = await http.PostAsync(
+            $"/chamaovar-api/ocorrencia?acontecimento={acontecimentoCriar}" +
+            $"&data={dataCriar}" +
+            $"&penalidade={penalidade}" +
+            $"&cpf={cpfTorcedor}" +
+            $"&colaboradorToken={TokenSystem.GetToken().nome}", null);
+
+        // Caso aconteça algum erro
+        int statusCode = (int)resposta.StatusCode;
+
+        if (statusCode != 200)
+        {
+            // Indicar qual foi o erro
+            await JsRuntime.InvokeVoidAsync("alert", $"Erro {statusCode} : {await resposta.Content.ReadAsStringAsync()}");
+
+            // Impedir o usuário de continuar
+            return;
+        }
+
+        // Se não, alertar que já foi feito
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("alert", $"Ocorrência criada com sucesso!");
+        }
+        catch
+        {
+
+        }
+    }
+
+    public async Task<bool> AvoidErrors()
+    {
+        // Caso a penalidade extrapole os limites
+        if (penalidade < 0 || penalidade > 1000)
+        {
+            try
+            {
+                await JsRuntime.InvokeVoidAsync("alert", $"Indique uma penalidade válida!");
+            }
+            catch
+            {
+
+            }
+
+            return false;
+        }
+
+        // Caso os valores sejam nulos
+        if (acontecimentoCriar == null || acontecimentoCriar == "Acontecimento")
+        {
+            try
+            {
+                await JsRuntime.InvokeVoidAsync("alert", $"Indique o acontecimento!");
+            }
+            catch
+            {
+
+            }
+
+            return false;
+        }
+
+        if (cpfTorcedor == null || cpfTorcedor == "")
+        {
+            try
+            {
+                await JsRuntime.InvokeVoidAsync("alert", $"Indique o CPF do torcedor!");
+            }
+            catch
+            {
+
+            }
+
+            return false;
+        }
+
+        if (dataCriar.CompareTo(DateTime.Now) > 0)
+        {
+            try
+            {
+                await JsRuntime.InvokeVoidAsync("alert", $"Indique uma data válida!");
+            }
+            catch
+            {
+
+            }
+
+            return false;
+        }
+
+        // Caso dê tudo certo, retornar true
+        return true;
+    }
 }

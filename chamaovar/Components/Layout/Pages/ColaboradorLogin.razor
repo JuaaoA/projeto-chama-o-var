@@ -81,15 +81,20 @@
             TokenSystem.InserirNovoToken(await response.Content.ReadAsStringAsync());
 
             // Navegar para a pagina do usuário
-            NavigationManager.NavigateTo("/menu-colaborador");
+            NavigationManager.NavigateTo("/menu-colaborador", true);
         }
         catch (Exception e)
         {
             await JsRuntime.InvokeVoidAsync("alert", $"Ocorreu um erro ao realizar o login : {e}");
         }
 
+        try
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Login realizado com sucesso!!");
+        }
+        catch
+        {
 
-        await JsRuntime.InvokeVoidAsync("alert", "Login realizado com sucesso!!");
-        //NavigationManager.NavigateTo();
+        }
     }
 }

@@ -8,24 +8,23 @@
 <div class="menu-editar-ocorrencias">
     <h3>Ocorrências</h3>
 
+    <!--
     <div class="buscar-ocorrencias">
         <input type="text" class="input-search" />
         <button>Buscar</button>
     </div>
+    -->
 
     <div class="lista-ocorrencias">
         @if (todas_ocorrencias != null)
         {
             @foreach (Ocorrencias o in todas_ocorrencias)
             {
-                <ListaOcorrenciaItem
-                                     num_oco="@o.id"
+                <ListaOcorrenciaItem num_oco="@o.id"
                                      autor_id="@o.torcedor"
                                      acontecimento="@o.acontecimento"
                                      penalidade="@o.penalidade"
-                                     data="@o.data_ocorrencia"
-
-                                     ></ListaOcorrenciaItem>
+                                     data="@o.data_ocorrencia"></ListaOcorrenciaItem>
             }
         }
 
