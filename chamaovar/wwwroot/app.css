@@ -252,9 +252,9 @@ a {
     flex-direction: column;
 }
 
-    .menu-colaborador h3 {
-        padding: 30px;
-    }
+.menu-colaborador h3 {
+    padding: 30px;
+}
 
 .menu-editar-ocorrencias {
     display: flex;
@@ -277,10 +277,13 @@ a {
         margin: 10px;
     }
 
+<<<<<<< HEAD
+=======
 .lista-ocorrencias {
     padding: 50px;
 }
 
+>>>>>>> 0c403da7e8f9623774e466dc0d802de6788c14da
 .item-ocorrencias {
     display: flex;
     align-items: center;
@@ -334,6 +337,79 @@ form button {
     width:auto;
 }
 
+button {
+    width: auto;
+}
+
+.fieldset-pai {
+    background-color: #004B23;
+    border-color: black;
+    border-radius: 10px;
+    padding: 30px 500px 50px 10px;
+    border-style: solid;
+    border-width: 3px;
+    margin-bottom: 50px;
+}
+
+.fieldset2-pai {
+    background-color: #004B23;
+    border-color: black;
+    border-radius: 10px;
+    padding: 30px 10px 50px 10px;
+    border-style: solid;
+    border-width: 3px;
+    margin-bottom: 50px;
+}
+
+.fieldsets-filhos {
+    width: 100%;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: #004B23;
+    border-color: black;
+    border-radius: 10px;
+    padding: 10px 50px 5px 20px;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.texto_pequeno{
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+    white-space: normal;
+}
+
+.texto_maiorzinho {
+    font-size: 13px;
+    padding: 0;
+    margin: 0;
+    white-space: normal;
+}
+
+.fieldsets-filhos h5{
+    padding: 0;
+    margin: 0;
+    white-space: normal;
+}
+
+.preto {
+    color: black;
+    font-size: 13px;
+    white-space: normal;
+    background-color: dimgrey;
+    border-radius: 3px;
+    width: auto;
+}
+
+.lista_torcedores {
+    margin-left: -20px;
+}
+
+.torcedores-da-lista li:hover{
+    text-decoration: underline;
+}
 /*
 cores do site:
 
