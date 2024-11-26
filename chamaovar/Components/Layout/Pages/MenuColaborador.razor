@@ -1,23 +1,102 @@
 ﻿@page "/menu-colaborador"
+@rendermode InteractiveServer 
+@inject NavigationManager nav
+@using chamaovar.Components.Code
 
 <PageTitle>Menu Colaborador</PageTitle>
 
 <div class="menu-colaborador">
     <h3>Bem vindo, Colaborador</h3>
-    <h2>Lista de Eventos</h2>
-    <section>
-        <fieldset class="fieldset-pai">
-            <fieldset class="fieldsets-filhos">
-                <h5>Flamengo x Vasco</h5>
-                <p class="texto_maiorzinho">
-                    <span class="preto">Local</span>: Maracanã - R. Prof. Eurico Rabelo - Maracanã, Rio de Janeiro - RJ, 20271-150
-                    <br /><br />
-                    <span class="preto">Data</span>: 25/12/2024 <br />
-                    <span class="preto">Horário</span>: 21h às 23h
-                </p>
-                <p class="texto_pequeno">Clique abaixo para saber mais sobre os torcedores desse evento</p>
-                <button class="botao_largo"><a href="/menu-colaborador/flavas-colab">Acessar</a></button>
-            </fieldset>
-        </fieldset>
-    </section>
+
+    <button @onclick="SairConta">Sair</button>
+
+    <div class="botoes_iniciais_colaborador">
+        <h2>Atalhos: </h2>
+
+        <button type="button" class="botao_colaborador" @onclick="GoToEventList">
+            <div>Eventos</div>
+        </button>
+
+        <button type="button" class="botao_colaborador" @onclick="GoToUsuariosList">
+            <div>Usuarios</div>
+        </button>
+
+        <button type="button" class="botao_colaborador" @onclick="GoToOcorrenciasList">
+            <div>Ocorrências</div>
+        </button>
+    </div>
+
+    <div class="informacoes_col_torcedor">
+
+        @if (colaborador != null)
+        {
+            <div class="colaborador_score_texto">
+                Seu score: @colaborador.score
+            </div>
+
+            <progress class="score-bar" value="@colaborador.score" max="1000"></progress>
+
+
+            <div class="ocorrencias-box">
+                <h4>Suas Ocorrências: </h4>
+
+                <div class="ocorrencias">
+                    <ListaOcorrenciasUsuario tcdr="@colaborador">
+
+                    </ListaOcorrenciasUsuario>
+                </div>
+            </div>
+        }
+
+    </div>
+
 </div>
+
+@code
+{
+    public Torcedor? colaborador;
+
+    public void GoToEventList()
+    {
+        nav.NavigateTo("/menu-colaborador/eventos");
+    }
+
+    public void GoToUsuariosList()
+    {
+        nav.NavigateTo("/menu-colaborador/torcedores");
+    }
+
+    public void GoToOcorrenciasList()
+    {
+        nav.NavigateTo("/menu-colaborador/editar");
+    }
+
+    public void SairConta()
+    {
+        TokenSystem.Deslogar();
+
+        nav.NavigateTo("/", true);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        colaborador = await TokenSystem.GetTorcedorByToken();
+
+        if (colaborador != null)
+        {
+            if (!colaborador.tecnico)
+            {
+                nav.NavigateTo("/login");
+            }
+        }
+        else
+        {
+            nav.NavigateTo("/login");
+        }
+    }
+}

@@ -1,0 +1,91 @@
+﻿@page "/menu-colaborador/eventos/participantes/{eventoId:int}"
+@rendermode InteractiveServer
+@using chamaovar.Components.Code 
+
+<h1 class="titulo_evento_details">Detalhes evento #@eventoId.ToString()</h1>
+
+<!-- Primeiro de tudo, Mostrar os detalhes do evento -->
+<div class="evento_details">
+
+    @if (evento_encontrado != null)
+    {
+        <div class="nome_evento_details">
+            @evento_encontrado.nome
+        </div>
+
+        <div class="data_evento_details">
+            @evento_encontrado.data_evento.Day / @evento_encontrado.data_evento.Month / @evento_encontrado.data_evento.Year
+        </div>
+
+        <div class="hora_evento_details">
+            @evento_encontrado.data_evento.Hour:@evento_encontrado.data_evento.Minute h
+        </div>
+
+        <div class="min_pont_evento_details">
+            Pontuação mínima: @evento_encontrado.minimo_pontuacao
+        </div>
+
+        @if (criador_evento != null)
+        {
+            <div class="criador_evento_details">
+                Criado por @criador_evento.nome_completo
+            </div>
+        }
+
+    }
+
+</div>
+
+<!-- Depois, mostrar uma lista com participantes -->
+<div class="ingressos_evento_details">
+
+    <h2>Lista de Participantes</h2>
+
+    @if (evento_encontrado != null)
+    {
+        @if (ingressos != null || ingressos?.Count == 0)
+        {
+            @foreach (Ingresso ing in ingressos)
+            {
+                <ParticipantesEventosItem ingresso="ing"
+                                          min_ponto="@evento_encontrado.minimo_pontuacao">
+
+                </ParticipantesEventosItem>
+            }
+        }
+        else
+        {
+            <p>Sem participantes</p>
+        }
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int eventoId { get; set; }
+
+    public Evento? evento_encontrado { get; set; }
+
+    public Torcedor? criador_evento { get; set; }
+
+    public List<Ingresso>? ingressos { get; set; }
+
+    // Ao iniciar
+    protected override async Task OnInitializedAsync()
+    {
+        // Definir o evento com o id e o criador
+        evento_encontrado = await EventosJSON.JsonToEventoByID(eventoId);
+
+        if (evento_encontrado == null)
+        {
+            criador_evento = null;
+            return;
+        }
+
+        // Pegar o criador do evento la ele dmssss
+        criador_evento = await TokenSystem.GetTorcedorById(evento_encontrado.criador);
+
+        // Listar os ingressos e participantes
+        ingressos = await IngressoJSON.JsonToListIngressoByEvento(evento_encontrado.id);
+    }
+}

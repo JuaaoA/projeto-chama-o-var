@@ -1,4 +1,6 @@
-﻿@page "/criar-ocorrencia"
+﻿@page "/criar-ocorrencia/"
+@page "/criar-ocorrencia/{cpfTorcedor}"
+
 @rendermode InteractiveServer
 @using chamaovar.Components.Code
 @inject IJSRuntime JsRuntime
@@ -11,50 +13,57 @@
     <h3>Crie sua ocorrência aqui</h3>
 
     <form action="/" method="post">
-    <fieldset>
-        <legend>Informações do ocorrido no evento</legend>
+        <fieldset>
+            <legend>Informações do ocorrido no evento</legend>
 
-        <input type="number" placeholder="Penalidade" @bind="penalidade">
-        <input type="datetime" placeholder="Data da ocorrência" @bind="dataCriar">
+            <input type="number" placeholder="Penalidade" @bind="penalidade">
+            <input type="datetime" placeholder="Data da ocorrência" @bind="dataCriar">
 
-        <label for="nome-evento">Evento</label>
-        <br />
-        <select>
-            <option>Evento</option>
-            <option value="flavas">Flamengo x Vasco</option>
-        </select>
-        <br /><br />
+            <label for="nome-evento">Evento</label>
+            <br />
 
-        <label for="acontecimento">Acontecimento</label>
+            <!--
 
-        <br />
+                <select>
+                    <option>Evento</option>
+                    <option value="flavas">Flamengo x Vasco</option>
+                </select>
 
-        <select @bind="acontecimentoCriar">
-            <option>Acontecimento</option>
-            <option value="Agressão Física">Agressão Física</option>
-            <option value="Dano ao patrimônio">Dano ao patrimônio</option>
-            <option value="Insultos verbais">Insultos verbais</option>
-            <option value="Racismo ou discriminação">Racismo ou discriminação</option>
-            <option value="Provocar tumulto ou desordem">Provocar tumulto ou desordem</option>
-        </select>
+            -->
 
-        <br /><br /><br />
-        <legend>Informações do indivíduo</legend>
+            <br /><br />
 
-        <input type="text" placeholder="CPF do indivíduo" @bind="cpfTorcedor">
+            <label for="acontecimento">Acontecimento</label>
 
-        <div class="botoes-criar-ocorrencia">
-            <button type="button" @onclick="Enviar">Criar Ocorrência</button>
-            <button type="reset">Resetar dados</button>
-        </div>
-    </fieldset>
-</form>
+            <br />
+
+            <select @bind="acontecimentoCriar">
+                <option>Acontecimento</option>
+                <option value="Agressão Física">Agressão Física</option>
+                <option value="Dano ao patrimônio">Dano ao patrimônio</option>
+                <option value="Insultos verbais">Insultos verbais</option>
+                <option value="Racismo ou discriminação">Racismo ou discriminação</option>
+                <option value="Provocar tumulto ou desordem">Provocar tumulto ou desordem</option>
+            </select>
+
+            <br /><br /><br />
+            <legend>Informações do indivíduo</legend>
+
+            <input type="text" placeholder="CPF do indivíduo" @bind="cpfTorcedor">
+
+            <div class="botoes-criar-ocorrencia">
+                <button type="button" @onclick="Enviar">Criar Ocorrência</button>
+                <button type="reset">Resetar dados</button>
+            </div>
+        </fieldset>
+    </form>
 </div>
 
 @code {
-
     public string acontecimentoCriar;
-    public string cpfTorcedor;
+
+    [Parameter]
+    public string? cpfTorcedor { get; set; }
 
     public DateTime dataCriar;
 

@@ -16,6 +16,34 @@ namespace chamaovar.Components.Code
 
 	public static class OcorrenciasJSON
 	{
+		public static async Task<List<Ocorrencias>?> JsonToOcorrenciasById(int id)
+		{
+            // Criar cliente http
+            HttpClient http = new HttpClient();
+
+            // Pegar todas as ocorrências
+            var ocorrencias = await http.GetAsync($"https://localhost:7094/chamaovar-api/ocorrencia/procurar/torcedor?torcedorId={id}");
+
+            Console.WriteLine(await ocorrencias.Content.ReadAsStringAsync());
+
+            // Pegar o status code retornado
+            int codigoResult = (int)ocorrencias.StatusCode;
+
+            // Escolher o que fazer de acordo com o código
+            if (codigoResult != 200)
+            {
+                return null;
+            }
+
+            // Se deu tudo certo
+            List<Ocorrencias>? ocorrencias1 = JsonSerializer.Deserialize<List<Ocorrencias>>(
+                    await ocorrencias.Content.ReadAsStringAsync()
+                );
+
+            // Retonar
+            return ocorrencias1;
+        }
+
 		public static async Task<List<Ocorrencias>?> JsonToOcorrencias()
 		{
 			// Criar cliente http

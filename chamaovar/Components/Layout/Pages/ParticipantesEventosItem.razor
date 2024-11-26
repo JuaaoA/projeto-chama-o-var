@@ -1,0 +1,79 @@
+﻿@rendermode InteractiveServer
+@using chamaovar.Components.Code
+
+@inject NavigationManager nav
+
+<div class="container_participante_item">
+
+    @if (ingresso != null)
+    {
+        <div class="item_ingresso_id">
+            Ingresso # @ingresso.id
+        </div>
+
+        @if (torcedor != null)
+        {
+            <div class="item_ingresso_nome">
+                @torcedor.nome_completo
+            </div>
+
+            <div class="item_ingresso_score">
+                Score: @torcedor.score
+            </div>
+
+            @if (torcedor.score < min_ponto)
+            {
+                <div style="color: red;">
+                    Esse ingresso é inválido por score baixo
+                </div>
+            }
+        }
+
+        <button @onclick="ToggleShowOptions">Abrir Ações</button>
+    }
+</div>
+
+<div class="container_opcoes_item">
+
+    @if (isShowingOptions)
+    {   
+        <button @onclick="GoToCriarOcorrencias">Criar Ocorrência para esse torcedor</button>
+    }
+
+</div>
+
+@code {
+    [Parameter]
+    public Ingresso? ingresso { get; set; }
+
+    [Parameter]
+    public int min_ponto { get; set; }
+
+    public Torcedor? torcedor { get; set; }
+
+    public bool isShowingOptions = false;
+
+    public void ToggleShowOptions()
+    {
+        this.isShowingOptions = !this.isShowingOptions;
+    }
+
+    public void GoToCriarOcorrencias()
+    {
+        // Evitar bugs
+        if (torcedor == null)
+        {
+            return;
+        }
+
+        // Navegar para o criar ocorrência passando o parâmetro
+        nav.NavigateTo($"/criar-ocorrencia/{torcedor.cpf}");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        // Pegar o torcedor responsável pelo ingresso
+        torcedor = await TokenSystem.GetTorcedorById(ingresso.torcedor);
+    }
+}
+

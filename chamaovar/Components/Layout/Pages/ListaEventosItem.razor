@@ -1,0 +1,141 @@
+﻿@rendermode InteractiveServer
+@using chamaovar.Components.Code
+
+@inject NavigationManager nav
+
+<div class="container_lista_evento_item">
+
+    <div class="lista_evento_nome">
+        @evento.nome
+    </div>
+
+    <div class="lista_evento_data">
+        @evento.data_evento.Day / @evento.data_evento.Month / @evento.data_evento.Year
+    </div>
+
+    <div class="lista_evento_horario">
+        @evento.data_evento.Hour:@evento.data_evento.Minute h
+    </div>
+
+    @if (!mostrarDetalhes)
+    {
+        <button @onclick="ToggleMostrarDetalhes">Mostrar detalhes</button>
+    }
+    else
+    {
+        <button @onclick="ToggleMostrarDetalhes">Esconder detalhes</button>
+    }
+
+    @if (!isEditing)
+    {
+        <button @onclick="ToggleIsEditing">Editar</button>
+    }
+    else
+    {
+        <button @onclick="ToggleIsEditing">Fechar</button>
+    }
+</div>
+
+<div class="container_lista_evento_item_detalhes">
+
+    @if (mostrarDetalhes)
+    {
+        <div class="lista_evento_detalhes">
+            @evento.detalhes
+        </div>
+
+        <div>
+            Minimo de pontos: @evento.minimo_pontuacao
+        </div>
+
+        <div>
+            Criado por: @criador_detalhes.nome_completo
+        </div>
+
+        <button @onclick="GoToEventParticipants">
+            Ver ingressos desse evento
+        </button>
+    }
+
+</div>
+
+<div class="container_lista_evento_editar">
+
+    @if (isEditing)
+    {
+        <form class="form_evento_editar">
+            <input name="" placeholder="Nome..." @bind="nomeEditar" />
+            <input name="" placeholder="Data..." @bind="dataEditar" />
+            <input name="" placeholder="Detalhes..." @bind="detalhesEditar" />
+            <input name="" placeholder="Pontuação mínima..." @bind="minimoEditar" />
+        </form>
+
+        <button @onclick="ApplyEdit">
+            Enviar
+        </button>
+    }
+
+</div>
+
+@code {
+    public string? nomeEditar;
+    public DateTime dataEditar;
+    public string? detalhesEditar;
+    public int minimoEditar;
+
+    [Parameter]
+    public Evento evento { get; set; }
+
+    public Torcedor? criador_detalhes { get; set; }
+
+    private bool mostrarDetalhes;
+    private bool isEditing;
+
+    public void ToggleMostrarDetalhes()
+    {
+        // Trocar mostrar detalhes
+        this.mostrarDetalhes = !this.mostrarDetalhes;
+
+        // Se estiver editando, parar de editar
+        if (isEditing)
+        {
+            isEditing = false;
+        }
+    }
+
+    public void ApplyEdit()
+    {   
+        // todo - aplicar edição no evento
+    }
+
+    public void ToggleIsEditing()
+    {
+        // Trocar editando
+        this.isEditing = !this.isEditing;
+
+        // Se estiver mostrando detalhes
+        if (mostrarDetalhes)
+        {
+            // Esconde-los
+            mostrarDetalhes = false;
+        }
+
+        // Definir valores do editar
+        nomeEditar = evento.nome;
+        dataEditar = evento.data_evento;
+        detalhesEditar = evento.detalhes;
+        minimoEditar = evento.minimo_pontuacao;
+    }
+
+    public void GoToEventParticipants()
+    {
+        // Navegar para a página do evento
+        nav.NavigateTo($"/menu-colaborador/eventos/participantes/{evento.id}");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        criador_detalhes = await TokenSystem.GetTorcedorById(evento.criador);
+    }
+}
+

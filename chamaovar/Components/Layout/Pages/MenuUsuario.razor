@@ -10,20 +10,38 @@
 <div class="menu-usuario">
     <h3>Bem vindo, @nome_exibicao !</h3>
 
+    <button @onclick="SairConta">Sair</button>
+
     <div class="line"></div>
 
     <div class="score-box">
         <h4>Sua pontuação: </h4>
-        
-        <div class="score-bar">
-            <div class="score-value" style="width: @valor_score %"></div>
-        </div>
+
+        @if (user != null)
+        {
+            <div class="score_texto">
+                Seu score: @user.score
+            </div>
+
+            <progress class="score-bar" value="@user.score" max="1000"></progress>
+        }
     </div>
 
     <div class="ocorrencias-box">
-        <h4>Ocorrências: </h4>
+        <h4>Suas Ocorrências: </h4>
 
-        <div class="ocorrencias"></div>
+        <div class="ocorrencias">
+            <ListaOcorrenciasUsuario tcdr="@user">
+
+            </ListaOcorrenciasUsuario>
+        </div>
+    </div>
+
+    <div class="lista_eventos_box">
+        <h4> Eventos próximos:</h4>
+
+        <ListaEventosUsuario></ListaEventosUsuario>
+
     </div>
 </div>
 
@@ -32,11 +50,13 @@
     private string nome_exibicao = "Usuário";
     private int valor_score = 100;
 
+    Torcedor? user;
+
     // Ao iniciar a página
     protected override async Task OnInitializedAsync()
     {
         // Pegar os dados do Torcedor
-        Torcedor? user = await TokenSystem.GetTorcedorByToken();
+        user = await TokenSystem.GetTorcedorByToken();
 
         // Caso usuário não esteja logado
         if (user == null)
@@ -52,5 +72,12 @@
         nome_exibicao = user.nome_completo;
 
         //return base.OnInitializedAsync();
+    }
+
+    public void SairConta()
+    {
+        TokenSystem.Deslogar();
+
+        nav.NavigateTo("/", true);
     }
 }

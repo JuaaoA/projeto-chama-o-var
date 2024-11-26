@@ -1,6 +1,6 @@
 ﻿@page "/login"
 @rendermode InteractiveServer
-@inject NavigationManager NavigationManager
+@inject NavigationManager nav
 @inject IJSRuntime JsRuntime
 @inject HttpClient http
 @using chamaovar.Components.Code
@@ -101,11 +101,52 @@
             TokenSystem.InserirNovoToken(await response.Content.ReadAsStringAsync());
 
             // Navegar para a pagina do usuário
-            NavigationManager.NavigateTo("/menu-usuario", true);
+            // Pegar o token
+            Torcedor? torcedor = await TokenSystem.GetTorcedorByToken();
+
+            // Se não encontrou, retornar
+            if (torcedor == null)
+            {
+                return;
+            }
+
+            if (torcedor.tecnico)
+            {
+                nav.NavigateTo("/menu-colaborador", true);
+            }
+            else
+            {
+                nav.NavigateTo("/menu-usuario", true);
+            }
+
         }
         catch (Exception e)
         {
             await JsRuntime.InvokeVoidAsync("alert", $"Ocorreu um erro ao realizar o login : {e}");
         }
     }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        // Pegar o token
+        Torcedor? torcedor = await TokenSystem.GetTorcedorByToken();
+
+        // Se não encontrou, retornar
+        if (torcedor == null)
+        {
+            return;
+        }
+
+        // Se não, verificar o que o usuário é
+        if (torcedor.tecnico)
+        {
+            nav.NavigateTo("/menu-colaborador");
+        }
+        else
+        {
+            nav.NavigateTo("/menu-usuario");
+        }
+    }
+
 }

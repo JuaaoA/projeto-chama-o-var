@@ -1,0 +1,30 @@
+﻿@page "/menu-colaborador/torcedores"
+@rendermode InteractiveServer
+
+@using chamaovar.Components.Code
+
+<h2 class="titulo_lista_torcedores">Torcedores:</h2>
+
+<div class="container_lista_torcedores">
+
+    @if (torcedores != null)
+    {
+        @foreach (Torcedor tcdr in torcedores)
+        {
+            <ListaUsuariosItem tcdr="@tcdr"></ListaUsuariosItem>
+        }
+    }
+
+</div>
+
+@code {
+
+    public List<Torcedor>? torcedores;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Pegar os torcedores
+        torcedores = await TokenSystem.GetAllTorcedor();
+    }
+}
+

@@ -1,0 +1,59 @@
+﻿@page "/menu-colaborador/eventos"
+@rendermode InteractiveServer 
+@inject IJSRuntime js
+@using chamaovar.Components.Code
+
+<h1>Eventos:</h1>
+
+<div class="container_lista_eventos">
+
+    <h2>
+        Criados por você:
+    </h2>
+
+    <div class="container_lista_eventos">
+
+        @if (eventos_criador != null)
+        {
+            @foreach (Evento evnt in eventos_criador)
+            {
+                <ListaEventosItem evento="@evnt"></ListaEventosItem>
+            }
+        }
+    </div>
+
+    <!-- -->
+
+    <h2>
+        Outros eventos:
+    </h2>
+
+    <div class="container_lista_eventos">
+
+        @if (eventos_outros != null)
+        {
+            @foreach (Evento evnt in eventos_outros)
+            {
+                <ListaEventosItem evento="@evnt"></ListaEventosItem>
+            }
+        }
+
+    </div>
+</div>
+
+@code {
+
+    private List<Evento>? eventos_criador;
+
+    private List<Evento>? eventos_outros;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Pegar os eventos criados pela pessoa logada
+        eventos_criador = await EventosJSON.JsonToEventosByCriador(TokenSystem.GetToken().nome, false);
+
+        // Pegar os outros eventos criados por outras pessoass
+        eventos_outros = await EventosJSON.JsonToEventosByCriador(TokenSystem.GetToken().nome, true);
+    }
+}
+

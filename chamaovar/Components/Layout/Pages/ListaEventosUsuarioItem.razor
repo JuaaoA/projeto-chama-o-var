@@ -1,0 +1,75 @@
+﻿@rendermode InteractiveServer
+@using chamaovar.Components.Code
+
+@inject IJSRuntime JsRuntime
+@inject HttpClient http;
+
+<div class="lista_eventos_usuario_item_container">
+
+    @if (evento != null)
+    {
+        <div class="id_evento_lista">
+            #@evento.id
+        </div>
+
+        <div class="nome_evento_lista">
+            @evento.nome
+        </div>
+
+        <div class="detalhes_evento_lista">
+            @evento.detalhes
+        </div>
+
+        <div class="data_evento_lista">
+            @evento.data_evento.Day / @evento.data_evento.Month / @evento.data_evento.Year
+        </div>
+
+        <div class="horario_evento_lista">
+            @evento.data_evento.Hour : @evento.data_evento.Minute H
+        </div>
+
+        <div class="aviso_evento_lista">
+            É necessário @evento.minimo_pontuacao pontos para ingressar.
+        </div>
+
+        <button @onclick="IngressarEvento">Ingressar</button>
+    }
+
+</div>
+
+@code {
+    [Parameter]
+    public Evento evento { get; set; }
+
+    public async Task IngressarEvento()
+    {
+        string? token = TokenSystem.GetToken().nome;
+
+        if (token == null || evento == null)
+        {
+            return;
+        }
+
+        // Se não
+        var resultado = await http.PostAsync($"https://localhost:7094/chamaovar-api/ingresso?" +
+            $"tokenTorcedor={token}&" +
+            $"eventoId={evento.id}", null);
+
+
+        // Pegar o status code do get
+        int statusCode = (int)resultado.StatusCode;
+
+        // Se o Resultado deu 200, ou seja, deu certo
+        if (statusCode == 200)
+        {
+            // Pegar o torcedor no json indicado
+            await JsRuntime.InvokeVoidAsync("alert", "Deu certo familia");
+
+            return;
+        }
+
+        // Se não
+        await JsRuntime.InvokeVoidAsync("alert", await resultado.Content.ReadAsStringAsync());
+    }
+}
+

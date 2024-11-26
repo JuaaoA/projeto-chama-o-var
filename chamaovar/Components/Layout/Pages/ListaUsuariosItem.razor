@@ -1,0 +1,52 @@
+﻿@rendermode InteractiveServer
+@using chamaovar.Components.Code
+
+@inject NavigationManager nav
+
+<div class="container_lista_usuario_item">
+    @if (tcdr != null)
+    {
+        <div class="nome_torcedor_lista_usuario">
+            @tcdr.nome_completo
+        </div>
+
+        <div class="score_torcedor_lista_usuario">
+            Score: @tcdr.score
+        </div>
+
+
+        @if (tcdr.tecnico)
+        {
+            <div class="colaborador_torcedor_lista_usuario">
+                Colaborador
+            </div>
+        }
+         else
+        {
+            <div class="colaborador_torcedor_lista_usuario">
+                Torcedor
+            </div>
+        }
+
+        <button type="button" @onclick="GoToCriarOcorrencia">Criar ocorrência com esse usuário</button>
+    }
+</div>
+
+
+@code {
+    [Parameter]
+    public Torcedor? tcdr { get; set; }
+
+    public void GoToCriarOcorrencia()
+    {
+        // Evitar bugs
+        if (tcdr == null)
+        {
+            return;
+        }
+
+        // Navegar para o criar ocorrência passando o parâmetro
+        nav.NavigateTo($"/criar-ocorrencia/{tcdr.cpf}");
+    }
+}
+

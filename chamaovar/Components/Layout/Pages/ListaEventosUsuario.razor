@@ -1,0 +1,29 @@
+﻿@rendermode InteractiveServer
+@using chamaovar.Components.Code
+
+<div class="lista_evento_user">
+
+    @if(eventos != null)
+    {
+        @foreach(Evento evt in eventos)
+        {
+            <ListaEventosUsuarioItem
+                                     evento="@evt"
+                                     >
+
+            </ListaEventosUsuarioItem>
+        }
+    }
+
+</div>
+
+@code {
+
+    public List<Evento>? eventos;
+
+    protected override async Task OnInitializedAsync()
+    {
+        eventos = await EventosJSON.JsonToEventos();
+    }
+}
+

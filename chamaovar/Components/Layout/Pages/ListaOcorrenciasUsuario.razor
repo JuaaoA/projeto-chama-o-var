@@ -1,0 +1,40 @@
+﻿@rendermode InteractiveServer
+@using chamaovar.Components.Code
+
+<div class="container_lista_ocorrencias_usuario">
+
+    @if (ocrs != null)
+    {
+        @foreach (Ocorrencias ocr in ocrs)
+        {
+            <div class="lista_ocorrencias_usuario_item">
+                <div class="id_ocorrencias_lista">#@ocr.id</div>
+
+                <div class="penalidade_ocorrencias_lista">- @ocr.penalidade</div>
+
+                <div class="acontecimento_ocorrencias_lista">@ocr.acontecimento</div>
+
+                <div class="data_ocorrencias_lista"> @ocr.data_ocorrencia.Day / @ocr.data_ocorrencia.Month / @ocr.data_ocorrencia.Year </div>
+            </div>
+        }
+    }
+
+</div>
+
+@code {
+    [Parameter]
+    public Torcedor? tcdr { get; set; }
+
+    List<Ocorrencias>? ocrs { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (tcdr == null)
+        {
+            return;
+        }
+
+        ocrs = await OcorrenciasJSON.JsonToOcorrenciasById(tcdr.id);
+    }
+}
+
