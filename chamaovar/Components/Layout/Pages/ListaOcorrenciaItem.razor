@@ -8,7 +8,12 @@
 {
     <div class="item-ocorrencias">
         <div class="info-ocorrencia">Ocor. #@num_oco</div>
-        <div class="info-ocorrencia">Torc. #@autor_id <button class="info-ocorrencia" @onclick="Revelar">Revelar</button> </div>
+
+        <div class="torcedor-revelar" >
+            <div class="info-ocorrencia">Torc. #@autor_id</div>
+            <button class="info-ocorrencia" @onclick="Revelar">Revelar</button>
+        </div>
+        
         <div class="info-ocorrencia">@acontecimento</div>
         <div class="info-ocorrencia">-@penalidade</div>
         <div class="info-ocorrencia">@DateOnly.FromDateTime(data)</div>

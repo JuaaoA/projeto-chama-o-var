@@ -277,35 +277,47 @@ a {
         margin: 10px;
     }
 
-<<<<<<< HEAD
-=======
+
 .lista-ocorrencias {
     padding: 50px;
 }
 
->>>>>>> 0c403da7e8f9623774e466dc0d802de6788c14da
+
 .item-ocorrencias {
     display: flex;
-    align-items: center;
-    padding: 10px;
-    margin: 10px;
+    align-items: start;
     border: 2px solid #CCFF33;
     border-radius: 10px;
     width: 850px;
     background-color: #004B23;
+    margin: 10px;
+    padding: 10px;
 }
 
 .item-ocorrencias button {
     width:100px;
+    margin: 0;
+}
+
+.torcedor-revelar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.label-ocorrencias {
+    display: flex;
+    flex-direction: row;
+     
+}
+
+.label-ocorrencias label {
+    
 }
 
 .info-ocorrencia {
-    border: 2px solid #CCFF33;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px;
     width: 150px;
-    
+    height: auto;
 }
 
 form fieldset select {
@@ -410,6 +422,19 @@ button {
 .torcedores-da-lista li:hover{
     text-decoration: underline;
 }
+
+.container_lista_evento_item {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 10px;
+}
+
+.container_lista_evento_item > div {
+    margin: 10px;
+    align-self: center;
+}
+
 /*
 cores do site:
 
