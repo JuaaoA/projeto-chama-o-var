@@ -17,7 +17,7 @@
         {
             @foreach (Evento evnt in eventos_criador)
             {
-                <ListaEventosItem evento="@evnt"></ListaEventosItem>
+                <ListaEventosItem evento="@evnt" donoEvento="true"></ListaEventosItem>
             }
         }
     </div>
@@ -34,7 +34,7 @@
         {
             @foreach (Evento evnt in eventos_outros)
             {
-                <ListaEventosItem evento="@evnt"></ListaEventosItem>
+                <ListaEventosItem evento="@evnt" donoEvento="false"></ListaEventosItem>
             }
         }
 

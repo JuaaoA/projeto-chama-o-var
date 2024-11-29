@@ -2,6 +2,7 @@
 @using chamaovar.Components.Code
 
 @inject NavigationManager nav
+@inject HttpClient http
 
 <div class="container_lista_evento_item">
 
@@ -26,14 +27,19 @@
         <button @onclick="ToggleMostrarDetalhes">Esconder detalhes</button>
     }
 
-    @if (!isEditing)
+
+    @if (donoEvento)
     {
-        <button @onclick="ToggleIsEditing">Editar</button>
+        @if (!isEditing)
+        {
+            <button @onclick="ToggleIsEditing">Editar</button>
+        }
+        else
+        {
+            <button @onclick="ToggleIsEditing">Fechar</button>
+        }
     }
-    else
-    {
-        <button @onclick="ToggleIsEditing">Fechar</button>
-    }
+
 </div>
 
 <div class="container_lista_evento_item_detalhes">
@@ -88,6 +94,9 @@
 
     public Torcedor? criador_detalhes { get; set; }
 
+    [Parameter]
+    public bool donoEvento { get; set; }
+
     private bool mostrarDetalhes;
     private bool isEditing;
 
@@ -103,9 +112,17 @@
         }
     }
 
-    public void ApplyEdit()
-    {   
+    public async void ApplyEdit()
+    {
         // todo - aplicar edição no evento
+        var resultado = await http.PatchAsync("/chamaovar-api/evento?" +
+            $"id={evento.id}" +
+            $"&nome={nomeEditar}" +
+            $"&data={dataEditar}" +
+            $"&detalhes={detalhesEditar}" +
+            $"&minimo_pontuacao={minimoEditar}" +
+            $"$&token={TokenSystem.GetToken()}", null);
+
     }
 
     public void ToggleIsEditing()

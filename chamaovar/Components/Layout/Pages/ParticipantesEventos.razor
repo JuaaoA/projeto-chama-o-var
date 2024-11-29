@@ -13,12 +13,14 @@
             @evento_encontrado.nome
         </div>
 
-        <div class="data_evento_details">
-            @evento_encontrado.data_evento.Day / @evento_encontrado.data_evento.Month / @evento_encontrado.data_evento.Year
-        </div>
+        <div class="datetime_evento_details">
+            <div class="data_evento_details">
+                @evento_encontrado.data_evento.Day / @evento_encontrado.data_evento.Month / @evento_encontrado.data_evento.Year
+            </div>
 
-        <div class="hora_evento_details">
-            @evento_encontrado.data_evento.Hour:@evento_encontrado.data_evento.Minute h
+            <div class="hora_evento_details">
+                @evento_encontrado.data_evento.Hour:@evento_encontrado.data_evento.Minute h
+            </div>
         </div>
 
         <div class="min_pont_evento_details">

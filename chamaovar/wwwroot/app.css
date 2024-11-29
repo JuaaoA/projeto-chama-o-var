@@ -386,7 +386,7 @@ button {
     border-width: 3px;
 }
 
-.texto_pequeno{
+.texto_pequeno {
     font-size: 10px;
     padding: 0;
     margin: 0;
@@ -428,11 +428,97 @@ button {
     justify-content: space-between;
 
     margin: 10px;
+
+    background-color: #004B23;
+    border-color: black;
+    border-radius: 10px;
+    padding: 10px 50px 5px 20px;
+    border-style: solid;
+    border-width: 3px;
 }
 
 .container_lista_evento_item > div {
     margin: 10px;
     align-self: center;
+}
+
+.container_lista_usuario_item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    background-color: #004B23;
+    border-color: black;
+    border-radius: 10px;
+    padding: 10px 50px 5px 20px;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.container_lista_evento_item_detalhes {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 15px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.container_participante_item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    background-color: #004B23;
+    border-color: black;
+    border-radius: 10px;
+    padding: 10px 50px 5px 20px;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.container_lista_evento_item_detalhes > div {
+    text-align: center;
+}
+
+.container_lista_evento_editar {
+    display: block;
+    margin-left: 20px;
+}
+
+.evento_details {
+    margin: 10px;
+    background-color: #004B23;
+    border-color: black;
+    border-radius: 10px;
+    padding: 10px 50px 5px 20px;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.nome_evento_details {
+    font-size: 38px;
+}
+
+.datetime_evento_details {
+    margin: 10px;
+    background-color: #004B23;
+    border-color: white;
+    border-radius: 10px;
+    padding: 10px 50px 5px 20px;
+    border-style: solid;
+    border-width: 3px;
+
+    display: inline-block;
+}
+
+.botoes_iniciais_colaborador {
+    display: flex;
+    justify-content: safe center;
+
+    width: 50%;
+}
+
+.botoes_iniciais_colaborador > button {
+    margin: 10px;
+    width: 150px;
 }
 
 /*
