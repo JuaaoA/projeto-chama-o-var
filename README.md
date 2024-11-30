@@ -8,7 +8,7 @@ para entrar em um evento ou não.
 
 o projeto funciona utilizando a ferramenta WEB Blazor, ASP .NET Core e MYSQL.
 
-Para o funcionamento, é necessário também ter o backend do projeto -> (https://github.com/JuaaoA/chamaovar-api)
+Para o funcionamento, é necessário também ter o backend do projeto -> (https://github.com/JuaaoA/chama-o-var-api)
 
 O projeto está rodando com dotnet 8, utilizamos o Visual Studio 2022 para desenvolve-lo.
 
