@@ -12,22 +12,24 @@
 <div class="menu-colaborador">
     <h3>Crie sua ocorrência aqui</h3>
 
-    <form action="/" method="post">
+    <form action="/" method="post" class="form_criar_ocorrencia">
         <fieldset>
-            <legend>Informações do ocorrido no evento</legend>
+
 
             <input type="number" placeholder="Penalidade" @bind="penalidade">
             <input type="datetime" placeholder="Data da ocorrência" @bind="dataCriar">
 
-            <label for="nome-evento">Evento</label>
-            <br />
 
             <!--
+                <label for="nome-evento">Evento</label>
+                <br />
 
-                <select>
-                    <option>Evento</option>
-                    <option value="flavas">Flamengo x Vasco</option>
-                </select>
+
+
+                    <select>
+                        <option>Evento</option>
+                        <option value="flavas">Flamengo x Vasco</option>
+                    </select>
 
             -->
 
@@ -37,7 +39,7 @@
 
             <br />
 
-            <select @bind="acontecimentoCriar">
+            <select @bind="acontecimentoCriar" class="acontecimento_label">
                 <option>Acontecimento</option>
                 <option value="Agressão Física">Agressão Física</option>
                 <option value="Dano ao patrimônio">Dano ao patrimônio</option>

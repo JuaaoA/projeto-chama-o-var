@@ -24,6 +24,13 @@
     protected override async Task OnInitializedAsync()
     {
         eventos = await EventosJSON.JsonToEventos();
+
+        if (eventos == null) return;
+
+        eventos = eventos.Where( o => o.data_evento.CompareTo(DateTime.Now) >= 0).ToList();
+
+        eventos = eventos.OrderByDescending( o => o.data_evento ).ToList();
+
     }
 }
 

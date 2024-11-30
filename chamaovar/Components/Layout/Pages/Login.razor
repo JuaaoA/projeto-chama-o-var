@@ -18,18 +18,10 @@
         <input class="login_input" type="password" required @bind="senha" placeholder="Digite sua senha" />
     </form>
 
-    <a class="nav-links" href="login/esqueci-senha">
-        <div>Esqueceu a senha?</div>
-    </a>
-
     <button type="button" class="botao_login" @onclick="TentarLogin">Login</button>
 
     <a class="nav-links" href="login/criar-conta">
         <span>Criar conta</span>
-    </a>
-
-    <a class="nav-links" href="colaborador/login">
-        <span>Sou colaborador</span>
     </a>
 </div>
 
@@ -85,16 +77,6 @@
 
                 // Impedir o usuário de continuar
                 return;
-            }
-
-            // Caso dê tudo certo, continuar
-            try
-            {
-                await JsRuntime.InvokeVoidAsync("alert", $"{await response.Content.ReadAsStringAsync()}");
-            }
-            catch
-            {
-
             }
 
             // Inserir o token novo no json

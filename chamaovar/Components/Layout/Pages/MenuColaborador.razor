@@ -8,8 +8,6 @@
 <div class="menu-colaborador">
     <h3>Bem vindo, Colaborador</h3>
 
-    <button @onclick="SairConta">Sair</button>
-
     <h2>Atalhos: </h2>
     <div class="botoes_iniciais_colaborador">
         <button type="button" class="botao_colaborador" @onclick="GoToEventList">
@@ -23,18 +21,22 @@
         <button type="button" class="botao_colaborador" @onclick="GoToOcorrenciasList">
             <div>Ocorrências</div>
         </button>
+
+        <button @onclick="SairConta">Sair</button>
     </div>
 
     <div class="informacoes_col_torcedor">
 
         @if (colaborador != null)
         {
-            <div class="colaborador_score_texto">
-                Seu score: @colaborador.score
+            <div class="scores">
+                <div class="colaborador_score_texto">
+                    Seu score: @colaborador.score
+                </div>
+
+                <progress class="score-bar" value="@colaborador.score" max="1000"></progress>
+
             </div>
-
-            <progress class="score-bar" value="@colaborador.score" max="1000"></progress>
-
 
             <div class="ocorrencias-box">
                 <h4>Suas Ocorrências: </h4>
@@ -44,6 +46,13 @@
 
                     </ListaOcorrenciasUsuario>
                 </div>
+            </div>
+
+            <div class="lista_eventos_box">
+                <h4> Eventos próximos:</h4>
+
+                <ListaEventosUsuario></ListaEventosUsuario>
+
             </div>
         }
 

@@ -8,9 +8,15 @@ html, body {
     letter-spacing: 1px;
 }
 
-.form-criar-conta input {
-    display: block;
-    margin-inline-start: 76px;
+.form-criar-conta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.criar_conta_titulo {
+    font-size: 24px;
 }
 
 button {
@@ -42,6 +48,18 @@ a:hover {
 }
 
 input {
+    color: #006400;
+    background-color: #CCFF33;
+    border-color: #CCFF33;
+    height: 50px;
+    width: 350px;
+    border-radius: 12px;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.acontecimento_label {
     color: #006400;
     background-color: #CCFF33;
     border-color: #CCFF33;
@@ -195,7 +213,13 @@ button:hover {
 }
 
 .cheque-tudo {
-    display: table;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cheque-tudo > div {
+    margin-top: 25px;
+    margin-left: 15px;
 }
 
 .menu-usuario h3{
@@ -232,7 +256,7 @@ button:hover {
 
 .ocorrencias-box {
     background-color: #004B23;
-    width: 450px;
+    width: 650px;
     border: 2px solid black;
     border-radius: 15px;
 }
@@ -519,6 +543,45 @@ button {
 .botoes_iniciais_colaborador > button {
     margin: 10px;
     width: 150px;
+}
+
+.lista_eventos_usuario_item_container {
+    display: block;
+    justify-content: center;
+
+    margin: 10px;
+    background-color: #004B23;
+    border-color: black;
+    border-radius: 10px;
+    padding: 10px 50px 5px 20px;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.lista_ocorrencias_usuario_item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    background-color: #004B23;
+    border-color: black;
+    border-radius: 10px;
+    padding: 10px 50px 5px 20px;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.scores {
+    display: block;
+    margin-left: 20%;
+}
+
+.lista_eventos_box {
+    margin-top: 10px;
+}
+
+.form_criar_ocorrencia {
+    display: block;
+
 }
 
 /*

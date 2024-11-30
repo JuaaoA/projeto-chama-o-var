@@ -54,6 +54,10 @@
 
         // Pegar os outros eventos criados por outras pessoass
         eventos_outros = await EventosJSON.JsonToEventosByCriador(TokenSystem.GetToken().nome, true);
+
+        eventos_criador = eventos_criador.OrderByDescending(o => o.data_evento).ToList();
+
+        eventos_outros = eventos_outros.OrderByDescending(o => o.data_evento).ToList();
     }
 }
 
